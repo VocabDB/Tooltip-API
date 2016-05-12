@@ -16,11 +16,13 @@ Flag selection is using Bootstrap's Tooltip and Popover class (included inside j
 
 Setting up Flag selection:
 to setup, just include the css in head section:
-<head>
+<code>
+&#60head>
 ...
-<link href="PATH/TO/voca_lang_sel.css" rel="stylesheet" type="text/css" />
+&#60link href="PATH/TO/voca_lang_sel.css" rel="stylesheet" type="text/css" />
 ...
-</head>
+&#60/head>
+</code>
 
 and the js right before the end of body tag: (or make it a Non-blocking script like async or defer)
 <body>
