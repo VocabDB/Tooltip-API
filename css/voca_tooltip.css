@@ -1,0 +1,291 @@
+a:link, a:visited, a:active {color:#465DB8 ; text-decoration:none ; } 
+a:hover {color:#CC0000 ; font-weight: bold; text-deoration:none ; }
+
+.vocaDB {
+ cursor:default;
+}
+ 
+.ajax_ad {
+	position: absolute;
+    z-index: 1000;
+}
+.ajax_word{
+	color:#fff; padding:5px; padding-left:70px;
+}
+.ajax_means {
+	color:yellow; margin-left:8px; padding:10px;  word-wrap:break-word; white-space :wrap;
+}
+.ajax_word_ar{
+	color:#fff; margin-right:20px; padding:10px; float:right;
+}
+.ajax_means_ar{
+	color:yellow; margin-right:20px; padding:10px; float:right; text-align:right; white-space :wrap;
+}
+.ajax_trans_site{
+	margin:2px 0 10px 65px;
+	width: 115px;
+}
+.ajax_pos{
+	font-size:85%;
+}
+.ajax_source{
+	color:yellow; padding:5px; padding-left:70px;
+}
+.ajax_means_trans {
+	color:yellow;  padding:10px; white-space :wrap;
+}
+
+.ajax_list_word {
+	width:100%; padding:10px; 
+} 
+
+.ajax_list_means {
+	width:100%; padding:10px; color:black; white-space :wrap;
+}
+
+
+.ajax_table_inner { /* inner table color , outer is voca_trans*/
+	color:#000; margin-bottom:7px; overflow-y:scroll; max-height:310px; margin: 0 auto; border-collapse: default; border-spacing:initial; width:100%; background-color:#f2f2f2; border-radius:10px; border:0; overflow-x: hidden;
+}
+
+.ajax_table_word{
+	background:#fff;margin:5px 5px 0 5px;padding-left:7px;
+}
+.ajax_table_idiom{
+	background:#c7def9; margin:5px 5px 0 5px;padding-left:7px;
+}
+.voca_only {position:absolute; margin-left:2%; padding:10px; width: 430px;
+z-index:34; background:#4486f6; color:white; border-radius:5px;border:1px solid #cccccc; box-shadow: 5px 5px 5px 0px lightgray;
+} 
+.voca_only_mobile, .voca_trans_mobile {position:absolute; font-size:1.0em; width: 400px; padding:10px;
+z-index:34; background:#4486f6; color:white; border-radius:5px;border:1px solid #cccccc; box-shadow: 5px 5px 5px 0px lightgray;
+}
+/* #fafad1 yellow voca_toolip.js에서 정의됨. vocaDB_layer class='voca_trans_mobile' or 'voca_only' */
+/* tooltip 번역, 추출된 word list 박스, 내부는 ajax_table_inner */
+.voca_trans { width :60%; font-size:1em;box-shadow: 5px 5px 5px 0px lightgray; z-index:34; position:absolute; text-align:justify; background:#4486f6;border-radius:5px;color:#000;border:1px solid #cccccc;padding:10px; /* cursor:pointer; */
+} 
+/* blue : #e3e4e9 */
+/*
+.voca_trans_mobile { font-size:10pt; max-height:50%; box-shadow: 5px 5px 5px 0px lightgray;z-index:34; margin-left: 0; position:absolute; text-align:left;cursor:pointer; background-color: #4486f6; border-radius:5px; color:#000;border:1px solid #cccccc;padding:5px; 
+}
+*/
+
+/* Put_vocaDB_layer_source, // Local Storage에서 사용한다 */
+.voca_trans_left{ font-size:10pt; width:50%; font-family:Arial;
+z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer; background:#e3e4e9 ;border-radius:5px;color:#000;border:1px solid #cccccc;padding:5px;
+}
+.no_meaning_ajax { font-size: 90%; /* width:80%; */ color:#000; /* margin-left:15%; */ border-radius:7px; border:1px solid #cccccc; background-color:#f2f2f2; padding-left:5px; float: right;}
+
+.button_request_ajax { font-size: 90%;
+ border:0; border-radius:7px; background:#ccc; color:#000; float:right; cursor: pointer;
+}
+
+.vocaDB_layer_close {
+	color:white;
+	font-size: 17px;
+	cursor:pointer;
+	font-family: Arial, Gadget, sans-serif;
+	font-weight: bold;
+
+	float:right;
+	padding: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 4px 10px 4px;
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333333;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border: 1px solid #cccccc;
+    border-bottom-color: #b3b3b3;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+.close
+{
+	position: absolute;
+	right: -12px;
+    top: -9px;
+    display: block;
+    font-size: 12px;
+    border-radius: 3px 3px 3px 3px;
+    padding: 3px 0;
+    line-height: 14px;
+    z-index: 98;
+    width: 20px;
+    text-align: center;
+	opacity: 1.0;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("../images/tooltipx.png");
+    background-position: -1px -1px;
+    background-repeat: no-repeat;
+}
+#drag_div
+{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: transparent;
+	z-index: -1;
+	cursor: move;
+}
+
+@media only screen and (min-device-width:100px) and (max-device-width:800px) {
+.voca_trans { width :90%; }
+.voca_only { float:left; width :90%; }
+}
+
+#vocaDB_layer
+{
+	z-index: 998;
+}
+#vocaDB_layer img
+{
+	max-width: 100%;
+    height: auto;
+}
+/* vocadb_pop_up */
+.context_change
+{
+	border-radius: 50%;
+ padding: 0 !important;
+	width: 20px;
+ height: 20px;
+ /* border: 1px solid #BDBDBD; */
+ display: inline-block;
+ vertical-align: middle;
+ margin-right: 5px;
+}
+
+#vocadb_pop_up
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: white;
+	display: none;
+	z-index: 999;
+	/* height: 1.95em; */
+}
+#vocadb_pop_up ul
+{
+	padding: 0;
+	margin: 0px;
+	list-style-type: none;
+	text-align: center;
+}
+#vocadb_pop_up li
+{
+	cursor: pointer;
+	float: left;
+	padding: 0.4em 0.2em;
+}
+#vocadb_pop_up span
+{
+	padding: 0.2em 0.02em;
+}
+#vocadb_pop_up .logo_img img
+{
+	width: 25px;
+	padding: 0px;
+}
+#vocadb_pop_up, #vocadb_pop_up ul, #vocadb_pop_up li, #vocadb_pop_up span, #vocadb_pop_up img
+{
+	-moz-user-select:-moz-none;
+	-moz-user-select:none;
+	-o-user-select:none;
+	-khtml-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+#vocadb_pop_up #special_border_vocadb
+{
+	padding: 1.2em 0 0;
+	border-right: 1px solid #ccc;
+	margin-right: 5px;
+}
+.logo_img
+{
+	padding: 7px 5px 5px 10px !important
+}
+.voca_only .tooltip_dn, .voca_only_mobile .tooltip_dn {
+	cursor:pointer;
+	position: absolute;
+	right: 0px;
+	padding: 0px 10px;
+	z-index: 1000;
+	width: 10%;
+	text-align: center;
+}
+
+.voca_trans .tooltip_dn, .voca_trans_mobile .tooltip_dn
+{
+	cursor:pointer;
+	float: right;
+	padding: 0px 10px;
+	z-index: 1000;
+	width: 10%;
+	position: relative;
+	text-align: center;
+	bottom: 10px;
+}
+
+.voca_only .ajax_means, .voca_only_mobile .ajax_means 
+{
+	color:yellow;
+	word-wrap:break-word;
+	margin-left: 62px;
+	/*margin-right: -65px;
+	 width: 75%; */
+	float: left;
+}
+
+.ad_div
+{
+	width:100%; margin-top:10px; margin-bottom: -15px; /* background:#fff; z-index:100; */
+}
+
+#vocadb_loading_img {
+	width: 50px;
+	height: 50px;
+	text-align: center;
+}
+#vocaDB_layer a {
+	font-family: Arial;
+}
+
+@media (max-width: 400px) {
+	.voca_only_mobile, .voca_trans_mobile
+	{
+		width: 90%
+	}
+}
+
+.input_request {font-size:110%; width:90%; margin:5px 0 8px 15px; border-radius:7px; border:1px solid #cccccc; background-color:#f2f2f2; padding-left:5px;}
+.input_request_key {font-size:110%; width:90%; margin:5px 0 8px 15px; border-radius:7px; border:1px solid #cccccc; background-color:yellow; padding-left:5px;}
+.submit_request { font-size:small; color:white; width:60px; height:34px; margin-top:2px; margin-right:5px; border:0; border-radius:10px; background:#4486f6; float:right; cursor: pointer;}
+.button_request { font-size:small; color:white; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
+.button_request_dic { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
+.button_request_arabic { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
+.button_request_web { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}

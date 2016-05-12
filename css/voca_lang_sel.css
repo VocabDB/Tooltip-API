@@ -1,0 +1,116 @@
+/* From Bootstrap tooltip and popover */
+.tooltip {   position: absolute;   z-index: 1070;   display: block;   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;   font-size: 12px;   font-style: normal;   font-weight: normal;   line-height: 1.42857143;   text-align: left;   text-align: start;   text-decoration: none;   text-shadow: none;   text-transform: none;   letter-spacing: normal;   word-break: normal;   word-spacing: normal;   word-wrap: normal;   white-space: normal;   filter: alpha(opacity=0);   opacity: 0;    line-break: auto; } .tooltip.in {   filter: alpha(opacity=90);   opacity: .9; } .tooltip.top {   padding: 5px 0;   margin-top: -3px; } .tooltip.right {   padding: 0 5px;   margin-left: 3px; } .tooltip.bottom {   padding: 5px 0;   margin-top: 3px; } .tooltip.left {   padding: 0 5px;   margin-left: -3px; } .tooltip-inner {   max-width: 200px;   padding: 3px 8px;   color: #fff;   text-align: center;   background-color: #000;   border-radius: 4px; } .tooltip-arrow {   position: absolute;   width: 0;   height: 0;   border-color: transparent;   border-style: solid; } .tooltip.top .tooltip-arrow {   bottom: 0;   left: 50%;   margin-left: -5px;   border-width: 5px 5px 0;   border-top-color: #000; } .tooltip.top-left .tooltip-arrow {   right: 5px;   bottom: 0;   margin-bottom: -5px;   border-width: 5px 5px 0;   border-top-color: #000; } .tooltip.top-right .tooltip-arrow {   bottom: 0;   left: 5px;   margin-bottom: -5px;   border-width: 5px 5px 0;   border-top-color: #000; } .tooltip.right .tooltip-arrow {   top: 50%;   left: 0;   margin-top: -5px;   border-width: 5px 5px 5px 0;   border-right-color: #000; } .tooltip.left .tooltip-arrow {   top: 50%;   right: 0;   margin-top: -5px;   border-width: 5px 0 5px 5px;   border-left-color: #000; } .tooltip.bottom .tooltip-arrow {   top: 0;   left: 50%;   margin-left: -5px;   border-width: 0 5px 5px;   border-bottom-color: #000; } .tooltip.bottom-left .tooltip-arrow {   top: 0;   right: 5px;   margin-top: -5px;   border-width: 0 5px 5px;   border-bottom-color: #000; } .tooltip.bottom-right .tooltip-arrow {   top: 0;   left: 5px;   margin-top: -5px;   border-width: 0 5px 5px;   border-bottom-color: #000; } .popover {   max-width: 100%;   position: absolute;   top: 0;   left: 0;   z-index: 1060;   display: none;   max-width: 276px;   padding: 1px;   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;   font-size: 14px;   font-style: normal;   font-weight: normal;   line-height: 1.42857143;   text-align: left;   text-align: start;   text-decoration: none;   text-shadow: none;   text-transform: none;   letter-spacing: normal;   word-break: normal;   word-spacing: normal;   word-wrap: normal;   white-space: normal;   background-color: #fff;   -webkit-background-clip: padding-box;           background-clip: padding-box;   border: 1px solid #ccc;   border: 1px solid rgba(0, 0, 0, .2);   border-radius: 6px;   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);   box-shadow: 0 5px 10px rgba(0, 0, 0, .2);   line-break: auto; } .popover.top {   margin-top: -10px; } .popover.right {   margin-left: 10px; } .popover.bottom {   margin-top: 10px; } .popover.left {   margin-left: -10px; } .popover-title {   padding: 8px 14px;   margin: 0;   font-size: 14px;   background-color: #f7f7f7;   border-bottom: 1px solid #ebebeb;   border-radius: 5px 5px 0 0; } .popover-content {   padding: 9px 14px; } .popover > .arrow, .popover > .arrow:after {   position: absolute;   display: block;   width: 0;   height: 0;   border-color: transparent;   border-style: solid; } .popover > .arrow {   border-width: 11px; } .popover > .arrow:after {   content: "";   border-width: 10px; } .popover.top > .arrow {   bottom: -11px;   left: 50%;   margin-left: -11px;   border-top-color: #999;   border-top-color: rgba(0, 0, 0, .25);   border-bottom-width: 0; } .popover.top > .arrow:after {   bottom: 1px;   margin-left: -10px;   content: " ";   border-top-color: #fff;   border-bottom-width: 0; } .popover.right > .arrow {   top: 50%;   left: -11px;   margin-top: -11px;   border-right-color: #999;   border-right-color: rgba(0, 0, 0, .25);   border-left-width: 0; } .popover.right > .arrow:after {   bottom: -10px;   left: 1px;   content: " ";   border-right-color: #fff;   border-left-width: 0; } .popover.bottom > .arrow {   top: -11px;   left: 50%;   margin-left: -11px;   border-top-width: 0;   border-bottom-color: #999;   border-bottom-color: rgba(0, 0, 0, .25); } .popover.bottom > .arrow:after {   top: 1px;   margin-left: -10px;   content: " ";   border-top-width: 0;   border-bottom-color: #fff; } .popover.left > .arrow {   top: 50%;   right: -11px;   margin-top: -11px;   border-right-width: 0;   border-left-color: #999;   border-left-color: rgba(0, 0, 0, .25); } .popover.left > .arrow:after {   right: 1px;   bottom: -10px;   content: " ";   border-right-width: 0;   border-left-color: #fff; }
+/* FROM bootstrap.css */
+.voca_row:before, .voca_row:after
+{   
+	display: table;   
+	content: " "; 
+} 
+.voca_div1, .voca_div2, .voca_div3
+{   
+	position: relative;   
+	min-height: 1px; 
+} 
+.voca_div1, .voca_div3
+{   
+	float: left; 
+} 
+.voca_div3 
+{   
+	width: 100%; 
+} 
+.voca_div1 
+{   
+	width: 50%;
+} 
+div.special-class
+{
+	max-width: 240px;
+	max-height: 80%;
+	overflow: auto;
+	overflow-x: hidden;
+}
+@media (min-width: 768px)
+{ 
+	.voca_div2 
+	{     
+		float: left;   
+	}   
+	.voca_div2 
+	{     
+		width: 50%;   
+	}
+	div.special-class
+	{
+		min-width: 450px;
+	}
+}
+@media (max-width: 768px)
+{
+	.flags_on_click {
+		margin-right: 80px;
+	}
+	#lang_close {
+		bottom: initial;
+		top: 0px;
+	}
+}
+
+.voca_flag_20 { display: inline-block; width: 20px; height: 14px; } .flag_ar_20 { background: url("../images/flags25.png") no-repeat; } .flag_hy_20 { background: url("../images/flags25.png") 0px -14px no-repeat; } .flag_bn_20 { background: url("../images/flags25.png") 0px -28px no-repeat; } .flag_bg_20 { background: url("../images/flags25.png") 0px -43px no-repeat; } .flag_zh-CN_20 { background: url("../images/flags25.png") 0px -56px no-repeat; } .flag_zh-TW_20 { background: url("../images/flags25.png") 0px -70px no-repeat; } .flag_hr_20 { background: url("../images/flags25.png") 0px -84px no-repeat; } .flag_cs_20 { background: url("../images/flags25.png") 0px -99px no-repeat; height: 13px; } .flag_da_20 { background: url("../images/flags25.png") 0px -112px no-repeat; } .flag_nl_20 { background: url("../images/flags25.png") 0px -127px no-repeat; } .flag_en_20 { background: url("../images/flags25.png") -20px 0px no-repeat; } .flag_tl_20 { background: url("../images/flags25.png") -20px -14px no-repeat; } .flag_fi_20 { background: url("../images/flags25.png") -20px -29px no-repeat; height: 13px; } .flag_fr_20 { background: url("../images/flags25.png") -20px -42px no-repeat; } .flag_ka_20 { background: url("../images/flags25.png") -20px -56px no-repeat; } .flag_de_20 { background: url("../images/flags25.png") -20px -70px no-repeat; } .flag_el_20 { background: url("../images/flags25.png") -20px -84px no-repeat; } .flag_hi_20 { background: url("../images/flags25.png") -20px -98px no-repeat; } .flag_hu_20 { background: url("../images/flags25.png") -20px -112px no-repeat; } .flag_id_20 { background: url("../images/flags25.png") -20px -126px no-repeat; } .flag_it_20 { background: url("../images/flags25.png") -40px 0px no-repeat; } .flag_ja_20 { background: url("../images/flags25.png") -40px -15px no-repeat; height: 13px; } .flag_ko_20 { background: url("../images/flags25.png") -40px -28px no-repeat; } .flag_ms_20 { background: url("../images/flags25.png") -40px -42px no-repeat; } .flag_no_20 { background: url("../images/flags25.png") -40px -56px no-repeat; } .flag_fa_20 { background: url("../images/flags25.png") -40px -70px no-repeat; } .flag_pl_20 { background: url("../images/flags25.png") -40px -84px no-repeat; } .flag_pt_20 { background: url("../images/flags25.png") -40px -98px no-repeat; } .flag_ro_20 { background: url("../images/flags25.png") -40px -112px no-repeat; } .flag_ru_20 { background: url("../images/flags25.png") -40px -127px no-repeat; } .flag_sl_20 { background: url("../images/flags25.png") -60px 0px no-repeat; } .flag_es_20 { background: url("../images/flags25.png") -60px -14px no-repeat; } .flag_sv_20 { background: url("../images/flags25.png") -60px -28px no-repeat; } .flag_ta_20 { background: url("../images/flags25.png") -60px -42px no-repeat; } .flag_th_20 { background: url("../images/flags25.png") -60px -56px no-repeat; } .flag_tr_20 { background: url("../images/flags25.png") -60px -70px no-repeat; } .flag_uk_20 { background: url("../images/flags25.png") -60px -84px no-repeat; } .flag_vi_20 { background: url("../images/flags25.png") -60px -98px no-repeat; } 
+.voca_flag_35{ display: inline-block; width: 35px; height: 24px; } .flag_ar_35 { background: url("../images/flags35.png") -175px -46px no-repeat; } .flag_hy_35 { background: url("../images/flags35.png") -105px -24px no-repeat; } .flag_bn_35 { background: url("../images/flags35.png") -175px 0px no-repeat; height: 21px; } .flag_bg_35 { background: url("../images/flags35.png") -176px -22px no-repeat; } .flag_zh-CN_35 { background: url("../images/flags35.png") 0px -24px no-repeat; } .flag_zh-TW_35 { background: url("../images/flags35.png") no-repeat; } .flag_hr_35 { background: url("../images/flags35.png") -105px -72px no-repeat; } .flag_cs_35 { background: url("../images/flags35.png") -140px -144px no-repeat; } .flag_da_35 { background: url("../images/flags35.png") -140px -120px no-repeat; } .flag_nl_35 { background: url("../images/flags35.png") -70px -24px no-repeat; } .flag_en_35 { background: url("../images/flags35.png") -140px -48px no-repeat; } .flag_tl_35 { background: url("../images/flags35.png") 0px -120px no-repeat; } .flag_fi_35 { background: url("../images/flags35.png") -105px -144px no-repeat; height: 22px; } .flag_fr_35 { background: url("../images/flags35.png") -105px -120px no-repeat; } .flag_ka_35 { background: url("../images/flags35.png") -70px -96px no-repeat; } .flag_de_35 { background: url("../images/flags35.png") -140px -95px no-repeat; } .flag_el_35 { background: url("../images/flags35.png") -140px -72px no-repeat; } .flag_hi_35 { background: url("../images/flags35.png") -35px 0px no-repeat; } .flag_hu_35 { background: url("../images/flags35.png") -105px -48px no-repeat; } .flag_id_35 { background: url("../images/flags35.png") -105px 0px no-repeat; } .flag_it_35 { background: url("../images/flags35.png") -70px -145px no-repeat; } .flag_ja_35 { background: url("../images/flags35.png") -70px -120px no-repeat; } .flag_ko_35 { background: url("../images/flags35.png") -70px -72px no-repeat; } .flag_ms_35 { background: url("../images/flags35.png") -70px -48px no-repeat; } .flag_no_35 { background: url("../images/flags35.png") -70px 0px no-repeat; } .flag_fa_35 { background: url("../images/flags35.png") -140px 0px no-repeat; } .flag_pl_35 { background: url("../images/flags35.png") -36px -146px no-repeat; width: 33px } .flag_pt_35 { background: url("../images/flags35.png") -35px -120px no-repeat; } .flag_ro_35 { background: url("../images/flags35.png") -35px -96px no-repeat; } .flag_ru_35 { background: url("../images/flags35.png") -35px -72px no-repeat; } .flag_sl_35 { background: url("../images/flags35.png") -35px -48px no-repeat; } .flag_es_35 { background: url("../images/flags35.png") -140px -24px no-repeat; } .flag_sv_35 { background: url("../images/flags35.png") -35px -24px no-repeat; } .flag_ta_35 { background: url("../images/flags35.png") -105px -96px no-repeat; } .flag_th_35 { background: url("../images/flags35.png") 0px -144px no-repeat; } .flag_tr_35 { background: url("../images/flags35.png") 0px -96px no-repeat; } .flag_uk_35 { background: url("../images/flags35.png") 0px -72px no-repeat; } .flag_vi_35 { background: url("../images/flags35.png") 0px -48px no-repeat; } 
+/* ########################################################### */
+#lang_select_languages
+{
+	display: none;
+	max-height: 200px;
+}
+.language-selector-box-wrapper td 
+{
+	vertical-align: top;
+} 
+.flags_on_click, .elem_holder 
+{ 
+	cursor: pointer;
+	white-space:nowrap;
+	padding: 5px;
+}
+.flags_on_click {
+	/* width: 200px; */
+	word-wrap: break-word;
+}
+.elem_holder 
+{
+	padding: 5px 3px 1px;
+}
+.elem_holder .flags_lang
+{
+	width: 35px;
+}
+.flags_lang 
+{
+	width: 25px;
+}
+.vocadb_lang_select
+{
+	padding: 2px 3px;
+	border: none;
+}
+.text_lang
+{
+	padding-left: 5px;
+	font-size: 12px;
+}
+
+#lang_close
+{
+	color: gray;
+	font-size: 26px;
+	cursor: pointer;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	padding: 3px 15px;
+}
+.popover {
+  max-width: 100%; 
+}
