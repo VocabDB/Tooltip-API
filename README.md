@@ -16,22 +16,25 @@ Flag selection is using Bootstrap's Tooltip and Popover class (included inside j
 
 Setting up Flag selection:
 to setup, just include the css in head section:
-<code>
-&#60head>
+<pre>
+<head>
 ...
-&#60link href="PATH/TO/voca_lang_sel.css" rel="stylesheet" type="text/css" />
+<link href="PATH/TO/voca_lang_sel.css" rel="stylesheet" type="text/css" />
 ...
-&#60/head>
-</code>
+</head>
+</pre>
 
 and the js right before the end of body tag: (or make it a Non-blocking script like async or defer)
+<pre>
 <body>
 ......
 <script type="text/javascript" src="PATH/TO/jquery.min.js" language="JavaScript"></script>
 <script type="text/javascript" src="PATH/TO/voca_lang_sel.js" language="JavaScript"></script>
 </body>
+</pre>
 
 after that, just include this code anywhere inside body tag:
+<pre>
 <body>
 ...
 <button class="vocadb_lang_select flag_settings">
@@ -39,4 +42,4 @@ after that, just include this code anywhere inside body tag:
 <input type="hidden" id="tlang"/>
 ...
 </body>
-
+</pre>
