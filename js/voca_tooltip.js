@@ -1,18 +1,19 @@
 // This is tooltip.js for clone dictionary.
-var image_loc = '../assets/images/';
+
 var sel_txt_color = '#F5FDC8';  // background color of selected a word or text 
 function tooltip_direction() {
-	var but_dir = 0;
-	if( $('#input_direction').length )
-	{
-		but_dir = $('#input_direction').val();
-	} else if (Mobile) {
-		but_dir = 1;
-	}
-	return but_dir; 
+		var but_dir = 0;
+		if( $('#input_direction').length )
+		{
+			but_dir = $('#input_direction').val();
+		} else if (Mobile) {
+			but_dir = 1;
+		}
+		return but_dir; 
 }
 function tooltip_tooltip_request_translation(str,slang,tlang,space_cnt,engin, audio) {
-var xmlhttp; 
+var xmlhttp;
+var apikey='clone';
 var level = getSelectedVal('input_level');  // English level
 
 var direction = 1;
@@ -28,37 +29,43 @@ var direction = 1;
 	xmlhttp.onreadystatechange=function()
 	  {
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-			// console.log(xmlhttp.responseText);
+
 			vocaDBmean=Extract_audio_word(xmlhttp.responseText);
+			// console.log(xmlhttp.responseText);
 			var but_dir = tooltip_direction();
+
 			var txt_close = '<span class="close btn" onclick="remove_layer()"><i class="icon-remove"></i></span>';
+
 			var drag_div = "<div id='drag_div' onmousedown='mouseclick_mobilelayer(event)' onmouseup='voca_mobile_layer_move=false' onmouseout='voca_mobile_layer_move=false' onmousemove='dragin(event)'></div>";
+// document.getElementById('test').innerHTML = msg+vocaDBmean;
 			if (space_cnt > 1) {
 				str = str.substr(0,70)+'...';
 				document.getElementById('vocaDB_layer').innerHTML = vocaDBmean[1]+drag_div+txt_close+"<span class='ajax_source'>"+str+"</span><br />"+vocaDBmean[2];
 			} else {
 				document.getElementById('vocaDB_layer').innerHTML = vocaDBmean[1]+drag_div+txt_close+vocaDBmean[2];
 			}
+
 			var tooltipdn_y = $('.ajax_ad').css('height').replace(/[^-\d\.]/g, '') - 35;
 			if(tooltipdn_y < 10){tooltipdn_y = 10;}
+				
 			$('.voca_only .tooltip_dn img[onclick]').css({
 				'position':'relative',
 				'top':  tooltipdn_y + 'px'
 			});
 			window.getSelection().removeAllRanges();
-		}
+			isrunning = false;
+		}	
 	} 
-var toPost = '';
-if (space_cnt == 1 && slang=='en') { 
-	toPost = "slang="+slang+"&tlang="+tlang+"&q="+str+"&tooltip_d=word";
-} else {  	
-	toPost = 'q='+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+"&tooltip_d=text"+'&space_cnt='+space_cnt+'&d='+direction;
-}
 
-xmlhttp.open("post","../assets/js/voca_tooltip_request.php",true);
-xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xmlhttp.send(toPost);
-// xmlhttp.send();
+	if (space_cnt == 1 && slang=='en') { 
+	
+		msg="api/api_dic_tooltip_word.php?apikey="+apikey+"&slang="+slang+"&tlang="+tlang+"&q="+str;  
+	} else {  	
+		msg = "api/api_dic_tooltip_text.php?apikey="+apikey+"&q="+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
+	}
+
+xmlhttp.open("post",msg,true);
+xmlhttp.send();
 }
 
 // Save word function from vocaDB_layer to localStorage
@@ -182,7 +189,9 @@ function vocaDBlayer(searchword,e) {
 				space_cnt = search_Word.split(/[ -]/).length;
 				
 				if (Mobile && but_dir==1) device = '_mobile'; else device = ''; 
-
+				
+				var image_loc = 'assets/images/';
+				
 				var loading_img = "<img id='vocadb_loading_img' src='"+image_loc+"loading.gif'/>";
 				
 				if (space_cnt <= 1) {
@@ -227,8 +236,7 @@ function vocaDBlayer(searchword,e) {
 				}
 				else 
 				{
-					y = e.pageY+140; 
-					y = window.pageYOffset+30; 
+					y = e.pageY-10; 
 					if (space_cnt <= 1) 
 					{
 						y = y+25;
@@ -241,7 +249,6 @@ function vocaDBlayer(searchword,e) {
 					{
 						x='20%';
 					}
-					console.log(e);
 					$(this).css({'left' : x,'top' : y});
 				}
 			});
@@ -276,6 +283,8 @@ function search_vocaDB( areaClass,  target, audio) {
 
     };
 	
+	var image_loc = 'assets/images/';
+	
 	/* edit Menu*/
 	var popup_vocadb = '<div id="vocadb_pop_up" unselectable="on"><ul><li class="logo_img"><span><img src="'+image_loc+'logo_icon_white.png"/></span></li><li id="special_border_vocadb"> &nbsp; </li><li><span class="context_change" data-color="FFC7D3" style="background-color:#FFC7D3;"></span></li><li><span class="context_change" data-color="E6FFC7" style="background-color:#E6FFC7"></span></li><li><span class="context_change" data-color="C7ECFF" style="background-color:#C7ECFF"></span></li><li><span class="context_change" data-color="FFECB8" style="background-color:#FFECB8"></span></li></ul></div>';
 	$('body').append(popup_vocadb);
@@ -301,7 +310,11 @@ function search_vocaDB( areaClass,  target, audio) {
 		// $('body').append(mobile_modal);
 		var selectionEndTimeout = '',clicked = false;
 		
+		
 		$(area).on('click',function(e){
+			if( isrunning ){return false; }
+			isrunning = true;
+			
 			if( check_unvoca() ){return false;}
 			if( e.target.className.match('voca-text-wrap') )
 			{
@@ -310,26 +323,35 @@ function search_vocaDB( areaClass,  target, audio) {
 			}
 			
 			var selected_text = detectSelectedText(e);
-			var clicked_gettext = selected_text['text'];
-			var range = selected_text['range'];
-			if(clicked_gettext != '')
+			// console.log(typeof(selected_text));
+			if(typeof(selected_text) == 'object')
 			{
-				if (window.getSelection && document.createRange) {
-					var sel = window.getSelection();
-					sel.addRange(range);
+				var clicked_gettext = selected_text['text'];
+				// console.log(clicked_gettext);
+				var range = selected_text['range'];
+				if(clicked_gettext != '')
+				{
+					if (window.getSelection && document.createRange) {
+						var sel = window.getSelection();
+						sel.addRange(range);
+					}
+					highlight('#F5FDC8');
+					vocaDBlayer(clicked_gettext,e);
+					clicked = true;
 				}
-				highlight('#F5FDC8');
-				vocaDBlayer(clicked_gettext,e);
-				clicked = true;
+				hidemenu_();
 			}
-			hidemenu_();
+			else
+			{
+				isrunning = false;
+			}
 		});
 		document.addEventListener("selectionchange", function (e) {
 			if (selectionEndTimeout) {
 				clearTimeout(selectionEndTimeout);
 			}
 			selectionEndTimeout = setTimeout(function () {
-				if( check_unvoca() ){return false;}
+				if( check_unvoca() ){gettext = '';return false;}
 				selectionEndTimeout = '';
 				var selected_text = getSelectedText(e);
 				gettext = selected_text;
@@ -350,6 +372,9 @@ function search_vocaDB( areaClass,  target, audio) {
 	{
 		// $('body').append(drag_layer);
 		$(area).dblclick(function(e){
+			if( isrunning ){ return false; }
+			isrunning = true;
+			
 			if( check_unvoca() ){return false;}
 			if( e.target.className.match('voca-text-wrap') )
 			{
@@ -415,8 +440,6 @@ function search_vocaDB( areaClass,  target, audio) {
 		gettext = getSelectedText();
 
 	}
-
-			
 	
 	function hidemenu_()
 	{
@@ -461,17 +484,13 @@ function search_vocaDB( areaClass,  target, audio) {
 	}
 	function check_unvoca()
 	{
-		// console.log( $(getORange().anchorNode).parents().hasClass('un-voca') );
-
 		if( $(getORange().anchorNode ).parents().hasClass('un-voca') )
 		{
 			// remove_layer();
 			// hidemenu_();
+			window.getSelection().removeAllRanges();
 			return true;
 		}
-
-
-		
 	}
 }//end search_vocaDB
 
@@ -600,44 +619,48 @@ function getSelectedText(){
 function detectSelectedText(e){
 	var t = '';
 	s = window.getSelection();
-    var range = s.getRangeAt(0);
-    var node = s.anchorNode;
-	var focusSet = s.focusOffset;
-	while (range.toString().indexOf(' ') != 0 && range.startOffset > 0) {
-		range.setStart(node, (range.startOffset - 1));
-	}
-
-	var i = 1;
-	if (range.startOffset == 0)
-	{
-		i = 0;
-	}
-	range.setStart(node, range.startOffset + i);
-	while (range.toString().indexOf(' ') == -1 && range.toString().trim() != '' && range.endOffset < node.length) {
-		range.setEnd(node, range.endOffset + 1);
-	}
-	
-		if( range.toString().charAt(range.toString().length-1) ==' ' )
-		{
-			range.setEnd(node, range.endOffset - 1);
+	// console.log( s.rangeCount );
+	if ( s.rangeCount > 0 ) {
+		var range = s.getRangeAt(0);
+		var node = s.anchorNode;
+		var focusSet = s.focusOffset;
+		while (range.toString().indexOf(' ') != 0 && range.startOffset > 0) {
+			range.setStart(node, (range.startOffset - 1));
 		}
-		if( range.toString().charAt(0) == ' ' )
+
+		var i = 1;
+		if (range.startOffset == 0)
 		{
-			range.setStart(node, (range.startOffset + 1));
-			while (range.toString().indexOf(' ') == -1 && range.toString().trim() != '' && range.endOffset < node.length) {
-				range.setEnd(node, range.endOffset + 1);
-			}
+			i = 0;
+		}
+		range.setStart(node, range.startOffset + i);
+		while (range.toString().indexOf(' ') == -1 && range.toString().trim() != '' && range.endOffset < node.length) {
+			range.setEnd(node, range.endOffset + 1);
+		}
+		
 			if( range.toString().charAt(range.toString().length-1) ==' ' )
 			{
 				range.setEnd(node, range.endOffset - 1);
 			}
-		}
-	t = range.toString().trim();
+			if( range.toString().charAt(0) == ' ' )
+			{
+				range.setStart(node, (range.startOffset + 1));
+				while (range.toString().indexOf(' ') == -1 && range.toString().trim() != '' && range.endOffset < node.length) {
+					range.setEnd(node, range.endOffset + 1);
+				}
+				if( range.toString().charAt(range.toString().length-1) ==' ' )
+				{
+					range.setEnd(node, range.endOffset - 1);
+				}
+			}
+		t = range.toString().trim();
 
-	var toreturn = new Object();
-	toreturn['text'] = t;
-	toreturn['range'] = range;
-	return toreturn;
+		var toreturn = new Object();
+		toreturn['text'] = t;
+		toreturn['range'] = range;
+		return toreturn;
+	}
+	return 'nope';
 }
 
 
@@ -698,3 +721,4 @@ function Nation_font(tlang)
 }
 
 var Mobile = checkMobile();
+var isrunning = false;

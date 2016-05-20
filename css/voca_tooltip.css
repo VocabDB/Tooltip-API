@@ -74,11 +74,17 @@ z-index:34; background:#4486f6; color:white; border-radius:5px;border:1px solid 
 .voca_trans_left{ font-size:10pt; width:50%; font-family:Arial;
 z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer; background:#e3e4e9 ;border-radius:5px;color:#000;border:1px solid #cccccc;padding:5px;
 }
-.no_meaning_ajax { font-size: 90%; /* width:80%; */ color:#000; /* margin-left:15%; */ border-radius:7px; border:1px solid #cccccc; background-color:#f2f2f2; padding-left:5px; float: right;}
+.no_meaning_ajax { font-size: 90%; width:80%; color:#000; margin-left:15%; border-radius:7px; border:1px solid #cccccc; background-color:#f2f2f2; padding-left:5px;}
 
 .button_request_ajax { font-size: 90%;
  border:0; border-radius:7px; background:#ccc; color:#000; float:right; cursor: pointer;
 }
+
+.button_request_ajax { font-size:small; color:white; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
+.button_request_dic_ajax { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
+.button_request_arabic_ajax { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
+.button_request_web_ajax { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
+
 
 .vocaDB_layer_close {
 	color:white;
@@ -281,11 +287,3 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 		width: 90%
 	}
 }
-
-.input_request {font-size:110%; width:90%; margin:5px 0 8px 15px; border-radius:7px; border:1px solid #cccccc; background-color:#f2f2f2; padding-left:5px;}
-.input_request_key {font-size:110%; width:90%; margin:5px 0 8px 15px; border-radius:7px; border:1px solid #cccccc; background-color:yellow; padding-left:5px;}
-.submit_request { font-size:small; color:white; width:60px; height:34px; margin-top:2px; margin-right:5px; border:0; border-radius:10px; background:#4486f6; float:right; cursor: pointer;}
-.button_request { font-size:small; color:white; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
-.button_request_dic { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
-.button_request_arabic { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}
-.button_request_web { font-size:small; color:white; margin-left:2px; border:0; border-radius:7px; background:#4486f6; float:right; cursor: pointer;}

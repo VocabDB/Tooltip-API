@@ -150,6 +150,7 @@ function flags_on_clicked (e)
 	setTimeout(function() { close_flags(); }, 100);
 }
 function close_flags (){
+	$('.special-class.popover').remove();
 	input_langselect.popover('hide');
 }
 
