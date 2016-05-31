@@ -57,15 +57,17 @@ var direction = 1;
 		}	
 	}
 
-	if (space_cnt == 1 && slang=='en') { 
-	
-		msg="api/api_dic_tooltip_word.php?apikey="+apikey+"&slang="+slang+"&tlang="+tlang+"&q="+str;  
-	} else {  	
-		msg = "api/api_dic_tooltip_text.php?apikey="+apikey+"&q="+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
-	}
+var toPost = '';
+if (space_cnt == 1 && slang=='en') { 
+	toPost = "slang="+slang+"&tlang="+tlang+"&q="+str+"&tooltip_d=word";
+} else {  	
+	toPost = 'q='+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+"&tooltip_d=text"+'&space_cnt='+space_cnt+'&d='+direction;
+}
 
-xmlhttp.open("post",msg,true);
-xmlhttp.send();
+xmlhttp.open("post","../assets/js/voca_tooltip_request.php",true);
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xmlhttp.send(toPost);
+// xmlhttp.send();
 }
 
 // Save word function from vocaDB_layer to localStorage
@@ -190,7 +192,7 @@ function vocaDBlayer(searchword,e) {
 				
 				if (Mobile && but_dir==1) device = '_mobile'; else device = ''; 
 				
-				var image_loc = 'assets/images/';
+				var image_loc = 'http://vocabdb.com/images/';
 				
 				var loading_img = "<img id='vocadb_loading_img' src='"+image_loc+"loading.gif'/>";
 				
@@ -283,7 +285,7 @@ function search_vocaDB( areaClass,  target, audio) {
 
     };
 	
-	var image_loc = 'assets/images/';
+	var image_loc = 'http://vocabdb.com/images/';
 	
 	/* edit Menu*/
 	var popup_vocadb = '<div id="vocadb_pop_up" unselectable="on"><ul><li class="logo_img"><span><img src="'+image_loc+'logo_icon_white.png"/></span></li><li id="special_border_vocadb"> &nbsp; </li><li><span class="context_change" data-color="FFC7D3" style="background-color:#FFC7D3;"></span></li><li><span class="context_change" data-color="E6FFC7" style="background-color:#E6FFC7"></span></li><li><span class="context_change" data-color="C7ECFF" style="background-color:#C7ECFF"></span></li><li><span class="context_change" data-color="FFECB8" style="background-color:#FFECB8"></span></li></ul></div>';
