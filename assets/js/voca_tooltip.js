@@ -31,10 +31,14 @@ var direction = 1;
 
 	xmlhttp.onreadystatechange=function()
 	{
+		if (xmlhttp.readyState==4)
+		{
+			isrunning = false;
+		}
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 
 			vocaDBmean=Extract_audio_word(xmlhttp.responseText);
-			console.log(xmlhttp.responseText);
+			// console.log( xmlhttp.responseText );
 			var but_dir = tooltip_direction();
 
 			var txt_close = '<span class="close btn" onclick="remove_layer()"><i class="icon-remove"></i></span>';
@@ -51,26 +55,21 @@ var direction = 1;
 			var tooltipdn_y = $('.ajax_ad').css('height').replace(/[^-\d\.]/g, '') - 35;
 			if(tooltipdn_y < 10){tooltipdn_y = 10;}
 				
-			$('.voca_only .tooltip_dn img[onclick]').css({
-				'position':'relative',
-				'top':  tooltipdn_y + 'px'
-			});
 			window.getSelection().removeAllRanges();
-			isrunning = false;
-		}	
+		}
 	}
 
-var toPost = '';
-if (space_cnt == 1 && slang=='en') { 
-	toPost = "slang="+slang+"&tlang="+tlang+"&q="+str+"&tooltip_d=word";
-} else {  	
-	toPost = 'q='+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+"&tooltip_d=text"+'&space_cnt='+space_cnt+'&d='+direction;
-}
-
-xmlhttp.open("post","../assets/js/voca_tooltip_request.php",true);
-xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xmlhttp.send(toPost);
-// xmlhttp.send();
+	if (space_cnt == 1 && slang=='en') { 
+	
+		msg="../tooltip-api/api/api_dic_tooltip_word.php?slang="+slang+"&tlang="+tlang+"&q="+str+'&d='+direction;  
+	} else {
+		msg = "../tooltip-api/api/api_dic_tooltip_text.php?q="+str+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
+		
+//		msg = "api/api_dic_tooltip_text.php?q="+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
+	}
+if (document.getElementById('test')) document.getElementById('test').innerHTML=msg ;	
+xmlhttp.open("post",msg,true);
+xmlhttp.send();
 }
 
 // Save word function from vocaDB_layer to localStorage
@@ -390,7 +389,7 @@ function search_vocaDB( areaClass,  target, audio) {
 			change_color(sel_txt_color);
 			vocaDBlayer(gettext,e);
 		});
-		$(area).mouseup(function(e){
+		$(area).mouseup(function(e){	
 			if( check_unvoca() ){return false;}
 			gettext = getSelectedText();
 			// console.log(gettext);

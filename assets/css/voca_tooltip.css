@@ -287,3 +287,4 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 		width: 90%
 	}
 }
+.word_circle { border-radius: 50%; width: 10px; height: 10px; background-color: #4486f6; display: inline-block; vertical-align: middle; margin: 0 0 4px 5px;}
