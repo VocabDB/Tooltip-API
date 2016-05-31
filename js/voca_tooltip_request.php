@@ -1,11 +1,12 @@
 <?php
+	$apikey = "";
+
 	if( required_param( array('q','slang','tlang','tooltip_d') ) )
 	{
 		echo 'Access Denied';
 		exit();
 	}
 	
-	$apikey = 8888;
 	$ACCESS_TOKEN_PARAMETERS = array(
 	"q"=> $_POST['q'],
 	"slang"=> $_POST['slang'], 
@@ -19,15 +20,13 @@
 	foreach($ACCESS_TOKEN_PARAMETERS as $key=>$value) { $data_string .= $key.'='.$value.'&'; }
 	rtrim($data_string, '&');
 
-	
+	$case = "";
 	switch($_POST['tooltip_d']){
 		case 'word': 
-			$link = "http://appsmithing.com/v2_demo/vocadb_tooltip_word";
-			// $link = "http://appsmithing.com/v2_api/api_tooltip_word.php";
+			$link = "http://appsmithing.com/v2_api/api_tooltip_word_htmlreturn.php";
 			break;
 		case 'text':
-			$link = "http://appsmithing.com/v2_demo/vocadb_tooltip_text";
-			// $link = "http://appsmithing.com/v2_api/api_tooltip_text.php";
+			$link = "http://appsmithing.com/v2_api/api_tooltip_text_htmlreturn.php";
 			break;
 	}
 	
@@ -39,7 +38,6 @@
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array( 
-		'x-voca-secure-info: ' . md5('3065'),
 		'x-voca-apikey: ' . $apikey,
 		'charset=UTF-8' ,
 		'Content-Length: ' . strlen($data_string))

@@ -1,5 +1,8 @@
-// This is tooltip.js for clone dictionary.
+// This is tooltip.js for VocaDB Tooltip
 
+$(document).ready(function(){
+	search_vocaDB( "vocaDB", 'new', true); 
+});
 var sel_txt_color = '#F5FDC8';  // background color of selected a word or text 
 function tooltip_direction() {
 		var but_dir = 0;
@@ -31,7 +34,7 @@ var direction = 1;
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 
 			vocaDBmean=Extract_audio_word(xmlhttp.responseText);
-			// console.log(xmlhttp.responseText);
+			console.log(xmlhttp.responseText);
 			var but_dir = tooltip_direction();
 
 			var txt_close = '<span class="close btn" onclick="remove_layer()"><i class="icon-remove"></i></span>';
