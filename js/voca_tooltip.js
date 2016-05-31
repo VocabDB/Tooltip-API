@@ -27,7 +27,7 @@ var direction = 1;
 	}
 
 	xmlhttp.onreadystatechange=function()
-	  {
+	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 
 			vocaDBmean=Extract_audio_word(xmlhttp.responseText);
@@ -55,7 +55,7 @@ var direction = 1;
 			window.getSelection().removeAllRanges();
 			isrunning = false;
 		}	
-	} 
+	}
 
 	if (space_cnt == 1 && slang=='en') { 
 	
