@@ -15,6 +15,16 @@ function tooltip_direction() {
 		return but_dir; 
 }
 function tooltip_tooltip_request_translation(str,slang,tlang,space_cnt,engin, audio) {
+
+// Get current url and assemble to call api folder
+var scripts = document.getElementById('voca-tooltip').src.split('/');
+var tolink = '';
+for(var i=0;i <= scripts.length-4; i++)
+{
+	tolink += scripts[i]+'/';
+}
+
+
 var xmlhttp;
 var apikey='clone';
 var level = getSelectedVal('input_level');  // English level
@@ -39,12 +49,13 @@ var direction = 1;
 
 			vocaDBmean=Extract_audio_word(xmlhttp.responseText);
 			// console.log( xmlhttp.responseText );
+			
 			var but_dir = tooltip_direction();
 
 			var txt_close = '<span class="close btn" onclick="remove_layer()"><i class="icon-remove"></i></span>';
 
 			var drag_div = "<div id='drag_div' onmousedown='mouseclick_mobilelayer(event)' onmouseup='voca_mobile_layer_move=false' onmouseout='voca_mobile_layer_move=false' onmousemove='dragin(event)'></div>";
-// document.getElementById('test').innerHTML = msg+vocaDBmean;
+
 			if (space_cnt > 1) {
 				str = str.substr(0,70)+'...';
 				document.getElementById('vocaDB_layer').innerHTML = vocaDBmean[1]+drag_div+txt_close+"<span class='ajax_source'>"+str+"</span><br />"+vocaDBmean[2];
@@ -61,9 +72,9 @@ var direction = 1;
 
 	if (space_cnt == 1 && slang=='en') { 
 	
-		msg="../tooltip-api/api/api_dic_tooltip_word.php?slang="+slang+"&tlang="+tlang+"&q="+str+'&d='+direction;  
+		msg = tolink+"api/api_dic_tooltip_word.php?slang="+slang+"&tlang="+tlang+"&q="+str+'&d='+direction;  
 	} else {
-		msg = "../tooltip-api/api/api_dic_tooltip_text.php?q="+str+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
+		msg = tolink+"api/api_dic_tooltip_text.php?q="+str+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
 		
 //		msg = "api/api_dic_tooltip_text.php?q="+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
 	}
