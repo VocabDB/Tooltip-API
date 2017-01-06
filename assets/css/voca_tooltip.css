@@ -1,5 +1,14 @@
-a:link, a:visited, a:active {color:#465DB8 ; text-decoration:none ; } 
-a:hover {color:#CC0000 ; font-weight: bold; text-deoration:none ; }
+.ajax_table_inner a:link, 
+.ajax_table_inner a:visited, 
+.ajax_table_inner a:active 
+{
+	color:#465DB8 ; text-decoration:none ; 
+} 
+.ajax_table_inner a:hover 
+{
+	color:#CC0000 ; font-weight: bold; text-deoration:none; font-size:1.0em;
+}
+
 
 .vocaDB {
  cursor:default;
@@ -7,42 +16,47 @@ a:hover {color:#CC0000 ; font-weight: bold; text-deoration:none ; }
  
 .ajax_ad {
 	position: absolute;
-    z-index: 1000;
+    z-index: 2147483647 ;
 }
+
 .ajax_word{
-	color:#fff; padding:5px; padding-left:70px;
+	color:#fff; padding:5px; padding-left:70px; font-size:16px;
 }
 .ajax_means {
-	color:yellow; margin-left:8px; padding:10px;  word-wrap:break-word; white-space :wrap;
+	color:yellow; margin-left:62px; padding:10px; width:62%; word-wrap:break-word; white-space :normal;  font-size:16px; 
 }
 .ajax_word_ar{
 	color:#fff; margin-right:20px; padding:10px; float:right;
 }
 .ajax_means_ar{
-	color:yellow; margin-right:20px; padding:10px; float:right; text-align:right; white-space :wrap;
+	color:yellow; margin-right:20px; padding:10px; float:right;width:70%; text-align:right; white-space :normal;
 }
 .ajax_trans_site{
 	margin:2px 0 10px 65px;
 	width: 115px;
 }
 .ajax_pos{
-	font-size:85%;
+	color:#fff; padding:5px;font-size:12px;
 }
 .ajax_source{
-	color:yellow; padding:5px; padding-left:70px;
+	color:yellow; padding:5px; padding-left:70px;white-space :normal;
 }
 .ajax_means_trans {
-	color:yellow;  padding:10px; white-space :wrap;
+	color:white;  padding:5px; padding-left:70px; white-space :normal;
 }
 
 .ajax_list_word {
-	width:100%; padding:10px; 
+	width:100%; padding:10px; font-size: 100%; font-weight:bold;
 } 
 
 .ajax_list_means {
-	width:100%; padding:10px; color:black; white-space :wrap;
+	width:100%; padding:10px; color:black; white-space :normal; padding-left: 15px;
 }
 
+
+.ajax_list_means_mobile {
+	width:100%; padding:10px; color:black; white-space :normal; padding-left: 25px; font-size: 95%; 
+}
 
 .ajax_table_inner { /* inner table color , outer is voca_trans*/
 	color:#000; margin-bottom:7px; overflow-y:scroll; max-height:310px; margin: 0 auto; border-collapse: default; border-spacing:initial; width:100%; background-color:#f2f2f2; border-radius:10px; border:0; overflow-x: hidden;
@@ -55,14 +69,14 @@ a:hover {color:#CC0000 ; font-weight: bold; text-deoration:none ; }
 	background:#c7def9; margin:5px 5px 0 5px;padding-left:7px;
 }
 .voca_only {position:absolute; margin-left:2%; padding:10px; width: 430px;
-z-index:34; background:#4486f6; color:white; border-radius:5px;border:1px solid #cccccc; box-shadow: 5px 5px 5px 0px lightgray;
+z-index:1000001; background:#4486f6; color:white; border-radius:5px;border:1px solid #cccccc; box-shadow: 5px 5px 5px 0px lightgray;
 } 
 .voca_only_mobile, .voca_trans_mobile {position:absolute; font-size:1.0em; width: 400px; padding:10px;
-z-index:34; background:#4486f6; color:white; border-radius:5px;border:1px solid #cccccc; box-shadow: 5px 5px 5px 0px lightgray;
+z-index:1000001; background:#4486f6; color:white; border-radius:5px;border:1px solid #cccccc; box-shadow: 5px 5px 5px 0px lightgray;
 }
 /* #fafad1 yellow voca_toolip.js에서 정의됨. vocaDB_layer class='voca_trans_mobile' or 'voca_only' */
 /* tooltip 번역, 추출된 word list 박스, 내부는 ajax_table_inner */
-.voca_trans { width :60%; font-size:1em;box-shadow: 5px 5px 5px 0px lightgray; z-index:34; position:absolute; text-align:justify; background:#4486f6;border-radius:5px;color:#000;border:1px solid #cccccc;padding:10px; /* cursor:pointer; */
+.voca_trans { width :60%; font-size:1em;box-shadow: 5px 5px 5px 0px lightgray; z-index:1000001; position:absolute; text-align:justify; background:#4486f6;border-radius:5px;color:#000;border:1px solid #cccccc;padding:10px; /* cursor:pointer; */
 } 
 /* blue : #e3e4e9 */
 /*
@@ -70,11 +84,11 @@ z-index:34; background:#4486f6; color:white; border-radius:5px;border:1px solid 
 }
 */
 
-/* Put_vocaDB_layer_source, // Local Storage에서 사용한다 */
+/* Put_vocaDB_layer_source, // used in Local Storage */
 .voca_trans_left{ font-size:10pt; width:50%; font-family:Arial;
-z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer; background:#e3e4e9 ;border-radius:5px;color:#000;border:1px solid #cccccc;padding:5px;
+z-index:1000001; margin-left: 1%; position:absolute; text-align:left;cursor:pointer; background:#e3e4e9 ;border-radius:5px;color:#000;border:1px solid #cccccc;padding:5px;
 }
-.no_meaning_ajax { font-size: 90%; width:80%; color:#000; margin-left:15%; border-radius:7px; border:1px solid #cccccc; background-color:#f2f2f2; padding-left:5px;}
+.no_meaning_ajax { font-size: 90%; height: 20px; color:#000; margin-left:15%; border-radius:7px; border:1px solid #cccccc; background-color:#f2f2f2; padding-left:5px;}
 
 .button_request_ajax { font-size: 90%;
  border:0; border-radius:7px; background:#ccc; color:#000; float:right; cursor: pointer;
@@ -97,7 +111,7 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 	padding: 10px;
 }
 
-.btn {
+#vocaDB_layer .btn, #vocaDB_requestword .btn {
     display: inline-block;
     padding: 4px 10px 4px;
     margin-bottom: 0;
@@ -116,7 +130,7 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
     cursor: pointer;
 }
-.close
+#vocaDB_layer .close, #vocaDB_requestword .close
 {
 	position: absolute;
 	right: -12px;
@@ -126,21 +140,24 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
     border-radius: 3px 3px 3px 3px;
     padding: 3px 0;
     line-height: 14px;
-    z-index: 98;
+    z-index: 1000000;
     width: 20px;
     text-align: center;
 	opacity: 1.0;
+	min-width: 20px;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+div#vocaDB_layer i.icon-remove {
     display: inline-block;
     width: 14px;
     height: 14px;
     line-height: 14px;
     vertical-align: text-top;
-    background-image: url("http://vocabdb.com/images/tooltipx.png");
+    background-image: url("../images/tooltipx.png");
     background-position: -1px -1px;
     background-repeat: no-repeat;
+	font-size: 12px;
+    margin: 0px;
 }
 #drag_div
 {
@@ -161,12 +178,15 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 
 #vocaDB_layer
 {
-	z-index: 998;
+	z-index: 2147483647;
+	white-space: nowrap;
+	text-align: left;
 }
 #vocaDB_layer img
 {
 	max-width: 100%;
     height: auto;
+	
 }
 /* vocadb_pop_up */
 .context_change
@@ -190,6 +210,7 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 	border-radius: 4px;
 	background-color: white;
 	display: none;
+	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3) !important;
 	z-index: 999;
 	/* height: 1.95em; */
 }
@@ -214,6 +235,7 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 {
 	width: 25px;
 	padding: 0px;
+	display: inline;
 }
 #vocadb_pop_up, #vocadb_pop_up ul, #vocadb_pop_up li, #vocadb_pop_up span, #vocadb_pop_up img
 {
@@ -241,7 +263,7 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 	right: 0px;
 	padding: 0px 10px;
 	z-index: 1000;
-	width: 10%;
+/* 	width: 10%; */
 	text-align: center;
 }
 
@@ -251,7 +273,7 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 	float: right;
 	padding: 0px 10px;
 	z-index: 1000;
-	width: 10%;
+/* 	width: 10%; */
 	position: relative;
 	text-align: center;
 	bottom: 10px;
@@ -262,10 +284,11 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 	color:yellow;
 	word-wrap:break-word;
 	margin-left: 62px;
-	/*margin-right: -65px;
-	 width: 75%; */
+
 	float: left;
 }
+	/*margin-right: -65px;
+	 width: 75%; */
 
 .ad_div
 {
@@ -287,4 +310,54 @@ z-index:2014; margin-left: 1%; position:absolute; text-align:left;cursor:pointer
 		width: 90%
 	}
 }
-.word_circle { border-radius: 50%; width: 10px; height: 10px; background-color: #4486f6; display: inline-block; vertical-align: middle; margin: 0 0 4px 5px;}
+/* word_circle from voca.js */
+.word_circle { border-radius: 50%; width: 10px; height: 10px; background-color: #4486f6; display: inline-block; vertical-align: middle; margin: 0 0 4px 5px;} 
+/* word image June 7 2016 */
+.voca_word_img {
+border-radius: 50%; background-color: #FFF; padding: 0px; overflow: hidden; float:right; height: 60px; width: 60px; margin:10px; }
+.voca_save_word, .voca_sound_word {
+	cursor: pointer;
+	margin-left: 20px;
+}
+.ajax_trans_site img{
+	width: 57px;
+    height: 21px;
+    display: inline;
+}
+.voca_save_word img,.voca_sound_word  img{
+	width: 20px;
+    height: 20px;
+    display: inline;
+}
+#vocaDB_layer , #vocaDB_layer *, #vocadb_pop_up, #vocadb_pop_up *{
+	text-transform: none;
+	box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	font-weight: normal;
+	line-height: normal;
+}
+#vocaDB_layer .ajax_table_inner table tbody tr td:first-child a span.ajax_list_word {
+	font-weight: bold;
+}
+
+.no_meaning_ajax *, .no_meaning_ajax {
+	font-size: 12px;
+}
+
+#vocaDB_layer button {
+	padding: 2px 6px;
+	font-size: 12px;
+	box-shadow: none;
+	min-height: 0px;
+}
+#vocaDB_layer .btn {
+	min-height: 0px;
+	min-width: 20px;
+	max-height: 14px;
+	max-width: 20px;
+	background-image: none;
+}
+#vocaDB_layer button:hover {
+	background-color: #4486f6;
+	color: white;
+}

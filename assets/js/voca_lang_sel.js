@@ -2,6 +2,19 @@ var input_langselect = $('.vocadb_lang_select');
 var input_hidden = $("#tlang");
 var lang_list = new Array('ar', 'hy', 'bn', 'bg', 'zh-CN', 'zh-TW', 'hr', 'cs', 'da', 'nl', 'en', 'tl', 'fi', 'fr', 'ka', 'de', 'el', 'hi', 'hu', 'id', 'it', 'ja', 'ko', 'ms', 'no', 'fa', 'pl', 'pt', 'ro', 'ru', 'sl', 'es', 'sv', 'ta', 'th', 'tr', 'uk', 'vi');
 
+var iconStyle = 'normal';
+var voca_scripts = document.getElementsByTagName('script');
+for( k in voca_scripts )
+{
+	if( typeof(voca_scripts[k]) == 'object' )
+	{
+		if( voca_scripts[k].hasAttribute('icon-style') )
+		{
+			iconStyle = voca_scripts[k].getAttribute('icon-style')
+		}
+	}
+}
+
 // var flagslang = '<div id="lang_select_languages"> <div class="language-selector-box-wrapper"> <div class="vocadb_container-fluid un-voca"> <div class="voca_row voca_div1"> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ar"> <span class="voca_flag_20 flag_ar_20"></span> <span class="text_lang">Arabic</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hy"> <span class="voca_flag_20 flag_hy_20"></span> <span class="text_lang">Armenian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="bn"> <span class="voca_flag_20 flag_bn_20"></span> <span class="text_lang">Bengali</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="bg"> <span class="voca_flag_20 flag_bg_20"></span> <span class="text_lang">Bulgarian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="zh-CN"> <span class="voca_flag_20 flag_zh-CN_20"></span> <span class="text_lang">‪简体中文</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="zh-TW"> <span class="voca_flag_20 flag_zh-TW_20"></span> <span class="text_lang">‪繁體中文</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hr"> <span class="voca_flag_20 flag_hr_20"></span> <span class="text_lang">Croatian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="cs"> <span class="voca_flag_20 flag_cs_20"></span> <span class="text_lang">Czech</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="da"> <span class="voca_flag_20 flag_da_20"></span> <span class="text_lang">Danish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="nl"> <span class="voca_flag_20 flag_nl_20"></span> <span class="text_lang">Dutch</span></div> </div> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="en"> <span class="voca_flag_20 flag_en_20"></span> <span class="text_lang">English</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="tl"> <span class="voca_flag_20 flag_tl_20"></span> <span class="text_lang">Filipino</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fi"> <span class="voca_flag_20 flag_fi_20"></span> <span class="text_lang">Finnish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fr"> <span class="voca_flag_20 flag_fr_20"></span> <span class="text_lang">French</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ka"> <span class="voca_flag_20 flag_ka_20"></span> <span class="text_lang">Georgian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="de"> <span class="voca_flag_20 flag_de_20"></span> <span class="text_lang">German</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="el"> <span class="voca_flag_20 flag_el_20"></span> <span class="text_lang">Greek</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hi"> <span class="voca_flag_20 flag_hi_20"></span> <span class="text_lang">Hindi</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hu"> <span class="voca_flag_20 flag_hu_20"></span> <span class="text_lang">Hungarian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="id"> <span class="voca_flag_20 flag_id_20"></span> <span class="text_lang">Indonesian</span></div> </div> </div> <div class="voca_row voca_div1"> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="it"> <span class="voca_flag_20 flag_it_20"></span> <span class="text_lang">Italian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ja"> <span class="voca_flag_20 flag_ja_20"></span> <span class="text_lang">Japanese</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ko"> <span class="voca_flag_20 flag_ko_20"></span> <span class="text_lang">Korean</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ms"> <span class="voca_flag_20 flag_ms_20"></span> <span class="text_lang">Malay</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="no"> <span class="voca_flag_20 flag_no_20"></span> <span class="text_lang">Norwegian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fa"> <span class="voca_flag_20 flag_fa_20"></span> <span class="text_lang">Persian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="pl"> <span class="voca_flag_20 flag_pl_20"></span> <span class="text_lang">Polish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="pt"> <span class="voca_flag_20 flag_pt_20"></span> <span class="text_lang">Portuguese</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ro"> <span class="voca_flag_20 flag_ro_20"></span> <span class="text_lang">Romanian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ru"> <span class="voca_flag_20 flag_ru_20"></span> <span class="text_lang">Russian</span></div> </div> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="sl"> <span class="voca_flag_20 flag_sl_20"></span> <span class="text_lang">Slovenian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="es"> <span class="voca_flag_20 flag_es_20"></span> <span class="text_lang">Spanish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="sv"> <span class="voca_flag_20 flag_sv_20"></span> <span class="text_lang">Swedish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ta"> <span class="voca_flag_20 flag_ta_20"></span> <span class="text_lang">Tamil</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="th"> <span class="voca_flag_20 flag_th_20"></span> <span class="text_lang">Thai</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="tr"> <span class="voca_flag_20 flag_tr_20"></span> <span class="text_lang">Turkish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="uk"> <span class="voca_flag_20 flag_uk_20"></span> <span class="text_lang">Ukrainian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="vi"> <span class="voca_flag_20 flag_vi_20"></span> <span class="text_lang">Vietnamese</span></div> </div><input style="z-index:1001" type="checkbox" onchange="reverse_lang(this)" id="voca_reverse_tlang"/> <label for="voca_reverse_tlang"> Reverse</label> </div> <span id="lang_close" onclick="close_flags()">&times;</span> </div> </div> </div>';
 
 // $('body').append(flagslang);
@@ -13,16 +26,18 @@ $(document).ready(function(){
 //set image flag on button, then set on input-hidden
 
 //voca_reverse_tlang
-function reverse_lang(e)
+function reverse_lang( e , dunhide )
 {
 	// console.log( e.checked );
 	var temp = '';
+	var checking = 0;
 	if(e.checked)
 	{
 		temp = $('#slang').val();
 		$('#slang').val( $('#tlang').val() );
 		$('#tlang').val( temp );
 		// input_langselect.popover('hide');
+		checking = 1;
 	}
 	else
 	{
@@ -30,22 +45,35 @@ function reverse_lang(e)
 		$('#slang').val( $('#tlang').val() );
 		$('#tlang').val( temp );
 		// input_langselect.popover('hide');
+		checking = 0;
 	}
 	
-	setTimeout(function() { input_langselect.popover('hide'); }, 100);
+	lang_setCookie_reverse(checking);
+	if(!dunhide)
+	{
+		setTimeout(function() { input_langselect.popover('hide'); }, 100);
+	}
 	// console.log( 'tlang = '+$('#tlang').val() + ' slang =' + $('#slang').val() );
 	// input_langselect.popover('hide');
 	// $('#voca_reverse_tlang').checked = true;
 }
-
+//voca_reverse_tlang
 function set_flag( tlang )
 {
-	// console.log(tlang);
-	$('.elem_holder').html( "<span class='voca_flag_35 flag_"+tlang+"_35'></span>" );
+	if( iconStyle == 'mini' )
+	{
+		$('.elem_holder').html( "<span class='voca_flag_20 flag_"+tlang+"_20'></span>" );
+	}
+	else
+	{
+		$('.elem_holder').html( "<span class='voca_flag_35 flag_"+tlang+"_35'></span>" );
+	}
+	
 	input_hidden.val( tlang );
 	$('#slang').val( 'en' );
 	lang_setCookie( tlang );
 }
+
 
 //Cookies
 function lang_setCookie(cvalue)
@@ -53,10 +81,17 @@ function lang_setCookie(cvalue)
     var d = new Date();
     d.setTime(d.getTime() + (1*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
-    document.cookie = "tlang = " + cvalue + "; " + expires;
+    document.cookie = "voca_web_tlang = " + cvalue + "; " + expires;
+}
+function lang_setCookie_reverse(cvalue)
+{
+    var d = new Date();
+    d.setTime(d.getTime() + (1*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = "voca_web_reverse = " + cvalue + "; " + expires;
 }
 function lang_readCookie() {
-    var nameEQ = "tlang=";
+    var nameEQ = "voca_web_tlang=";
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {
         var c = ca[i];
@@ -65,9 +100,17 @@ function lang_readCookie() {
     }
     return "undefined";
 }
-function lang_deleteCookie() {
-	document.cookie = "tlang=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+function lang_readCookie_reverse() {
+    var nameEQ = "voca_web_reverse=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return "undefined";
 }
+
 //Browser language
 function get_browserlang()
 {
@@ -99,8 +142,8 @@ function initialize_lang( input_langselect )
 		animation: true,
 		container: 'body',
 		template: '<div class="special-class popover"  role="tooltip" style="color: black;"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
-		content: '<div class="language-selector-box-wrapper"> <div class="vocadb_container-fluid un-voca"> <div class="voca_row voca_div1"> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ar"> <span class="voca_flag_20 flag_ar_20"></span> <span class="text_lang">Arabic</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hy"> <span class="voca_flag_20 flag_hy_20"></span> <span class="text_lang">Armenian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="bn"> <span class="voca_flag_20 flag_bn_20"></span> <span class="text_lang">Bengali</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="bg"> <span class="voca_flag_20 flag_bg_20"></span> <span class="text_lang">Bulgarian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="zh-CN"> <span class="voca_flag_20 flag_zh-CN_20"></span> <span class="text_lang">‪简体中文</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="zh-TW"> <span class="voca_flag_20 flag_zh-TW_20"></span> <span class="text_lang">‪繁體中文</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hr"> <span class="voca_flag_20 flag_hr_20"></span> <span class="text_lang">Croatian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="cs"> <span class="voca_flag_20 flag_cs_20"></span> <span class="text_lang">Czech</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="da"> <span class="voca_flag_20 flag_da_20"></span> <span class="text_lang">Danish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="nl"> <span class="voca_flag_20 flag_nl_20"></span> <span class="text_lang">Dutch</span></div> </div> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="en"> <span class="voca_flag_20 flag_en_20"></span> <span class="text_lang">English</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="tl"> <span class="voca_flag_20 flag_tl_20"></span> <span class="text_lang">Filipino</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fi"> <span class="voca_flag_20 flag_fi_20"></span> <span class="text_lang">Finnish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fr"> <span class="voca_flag_20 flag_fr_20"></span> <span class="text_lang">French</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ka"> <span class="voca_flag_20 flag_ka_20"></span> <span class="text_lang">Georgian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="de"> <span class="voca_flag_20 flag_de_20"></span> <span class="text_lang">German</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="el"> <span class="voca_flag_20 flag_el_20"></span> <span class="text_lang">Greek</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hi"> <span class="voca_flag_20 flag_hi_20"></span> <span class="text_lang">Hindi</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hu"> <span class="voca_flag_20 flag_hu_20"></span> <span class="text_lang">Hungarian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="id"> <span class="voca_flag_20 flag_id_20"></span> <span class="text_lang">Indonesian</span></div> </div> </div> <div class="voca_row voca_div1"> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="it"> <span class="voca_flag_20 flag_it_20"></span> <span class="text_lang">Italian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ja"> <span class="voca_flag_20 flag_ja_20"></span> <span class="text_lang">Japanese</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ko"> <span class="voca_flag_20 flag_ko_20"></span> <span class="text_lang">Korean</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ms"> <span class="voca_flag_20 flag_ms_20"></span> <span class="text_lang">Malay</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="no"> <span class="voca_flag_20 flag_no_20"></span> <span class="text_lang">Norwegian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fa"> <span class="voca_flag_20 flag_fa_20"></span> <span class="text_lang">Persian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="pl"> <span class="voca_flag_20 flag_pl_20"></span> <span class="text_lang">Polish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="pt"> <span class="voca_flag_20 flag_pt_20"></span> <span class="text_lang">Portuguese</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ro"> <span class="voca_flag_20 flag_ro_20"></span> <span class="text_lang">Romanian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ru"> <span class="voca_flag_20 flag_ru_20"></span> <span class="text_lang">Russian</span></div> </div> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="sl"> <span class="voca_flag_20 flag_sl_20"></span> <span class="text_lang">Slovenian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="es"> <span class="voca_flag_20 flag_es_20"></span> <span class="text_lang">Spanish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="sv"> <span class="voca_flag_20 flag_sv_20"></span> <span class="text_lang">Swedish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ta"> <span class="voca_flag_20 flag_ta_20"></span> <span class="text_lang">Tamil</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="th"> <span class="voca_flag_20 flag_th_20"></span> <span class="text_lang">Thai</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="tr"> <span class="voca_flag_20 flag_tr_20"></span> <span class="text_lang">Turkish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="uk"> <span class="voca_flag_20 flag_uk_20"></span> <span class="text_lang">Ukrainian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="vi"> <span class="voca_flag_20 flag_vi_20"></span> <span class="text_lang">Vietnamese</span></div> </div><input style="z-index:1001" type="checkbox" onchange="reverse_lang(this)" id="voca_reverse_tlang"/> <label for="voca_reverse_tlang"> Reverse</label> </div> <span id="lang_close" onclick="close_flags()">&times;</span> </div> </div>',
-		placement: 'bottom',
+		content: '<div class="language-selector-box-wrapper"> <div class="vocadb_container-fluid un-voca"> <div class="voca_row voca_div1"> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ar"> <span class="voca_flag_20 flag_ar_20"></span> <span class="text_lang">Arabic</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hy"> <span class="voca_flag_20 flag_hy_20"></span> <span class="text_lang">Armenian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="bn"> <span class="voca_flag_20 flag_bn_20"></span> <span class="text_lang">Bengali</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="bg"> <span class="voca_flag_20 flag_bg_20"></span> <span class="text_lang">Bulgarian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="zh-CN"> <span class="voca_flag_20 flag_zh-CN_20"></span> <span class="text_lang">Simplified<!--‪简体中文--></span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="zh-TW"> <span class="voca_flag_20 flag_zh-TW_20"></span> <span class="text_lang">Traditional<!--‪繁體中文--></span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hr"> <span class="voca_flag_20 flag_hr_20"></span> <span class="text_lang">Croatian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="cs"> <span class="voca_flag_20 flag_cs_20"></span> <span class="text_lang">Czech</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="da"> <span class="voca_flag_20 flag_da_20"></span> <span class="text_lang">Danish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="nl"> <span class="voca_flag_20 flag_nl_20"></span> <span class="text_lang">Dutch</span></div> </div> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="en"> <span class="voca_flag_20 flag_en_20"></span> <span class="text_lang">English</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="tl"> <span class="voca_flag_20 flag_tl_20"></span> <span class="text_lang">Filipino</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fi"> <span class="voca_flag_20 flag_fi_20"></span> <span class="text_lang">Finnish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fr"> <span class="voca_flag_20 flag_fr_20"></span> <span class="text_lang">French</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ka"> <span class="voca_flag_20 flag_ka_20"></span> <span class="text_lang">Georgian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="de"> <span class="voca_flag_20 flag_de_20"></span> <span class="text_lang">German</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="el"> <span class="voca_flag_20 flag_el_20"></span> <span class="text_lang">Greek</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hi"> <span class="voca_flag_20 flag_hi_20"></span> <span class="text_lang">Hindi</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="hu"> <span class="voca_flag_20 flag_hu_20"></span> <span class="text_lang">Hungarian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="id"> <span class="voca_flag_20 flag_id_20"></span> <span class="text_lang">Indonesian</span></div> </div> </div> <div class="voca_row voca_div1"> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="it"> <span class="voca_flag_20 flag_it_20"></span> <span class="text_lang">Italian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ja"> <span class="voca_flag_20 flag_ja_20"></span> <span class="text_lang">Japanese</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ko"> <span class="voca_flag_20 flag_ko_20"></span> <span class="text_lang">Korean</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ms"> <span class="voca_flag_20 flag_ms_20"></span> <span class="text_lang">Malay</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="no"> <span class="voca_flag_20 flag_no_20"></span> <span class="text_lang">Norwegian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="fa"> <span class="voca_flag_20 flag_fa_20"></span> <span class="text_lang">Persian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="pl"> <span class="voca_flag_20 flag_pl_20"></span> <span class="text_lang">Polish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="pt"> <span class="voca_flag_20 flag_pt_20"></span> <span class="text_lang">Portuguese</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ro"> <span class="voca_flag_20 flag_ro_20"></span> <span class="text_lang">Romanian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ru"> <span class="voca_flag_20 flag_ru_20"></span> <span class="text_lang">Russian</span></div> </div> <div class="voca_row voca_div3 voca_div2"> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="sl"> <span class="voca_flag_20 flag_sl_20"></span> <span class="text_lang">Slovenian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="es"> <span class="voca_flag_20 flag_es_20"></span> <span class="text_lang">Spanish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="sv"> <span class="voca_flag_20 flag_sv_20"></span> <span class="text_lang">Swedish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="ta"> <span class="voca_flag_20 flag_ta_20"></span> <span class="text_lang">Tamil</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="th"> <span class="voca_flag_20 flag_th_20"></span> <span class="text_lang">Thai</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="tr"> <span class="voca_flag_20 flag_tr_20"></span> <span class="text_lang">Turkish</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="uk"> <span class="voca_flag_20 flag_uk_20"></span> <span class="text_lang">Ukrainian</span></div> <div class="flags_on_click" onmousedown="flags_on_clicked(this)" data-value="vi"> <span class="voca_flag_20 flag_vi_20"></span> <span class="text_lang">Vietnamese</span></div> </div><input style="z-index:1001" type="checkbox" onchange="reverse_lang(this,0)" id="voca_reverse_tlang"/> <label for="voca_reverse_tlang"> Reverse</label> </div> <span id="lang_close" onclick="close_flags()">&times;</span> </div> </div>',
+		placement: 'auto bottom',
 		html: true,
 		trigger: is_touch_device ? "manual" : "click"
 	});
@@ -114,12 +157,19 @@ function initialize_lang( input_langselect )
 	
 	input_langselect.popover().on('shown.bs.popover', function() { 
 		//voca_reverse_tlang
-		
-		if( $('#slang') && $('#tlang') )
+		var lang_reverse = lang_readCookie_reverse();
+		if( lang_reverse != "undefined" )
 		{
-			if( $('#slang').val() != 'en' && $('#tlang').val() == 'en' )
-				$('#voca_reverse_tlang').prop("checked", true);
+			console.log(lang_reverse);
+			if( lang_reverse == 1 )
+				document.getElementById("voca_reverse_tlang").checked = true;
+			reverse_lang( document.getElementById( 'voca_reverse_tlang' ),1 );
 		}
+		// if( $('#slang') && $('#tlang') )
+		// {
+			// if( $('#slang').val() != 'en' && $('#tlang').val() == 'en' )
+				// $('#voca_reverse_tlang').prop("checked", true);
+		// }
 
 	});
 	
@@ -130,7 +180,7 @@ function initialize_lang( input_langselect )
 	}
 	else
 	{
-		var lang = get_browserlang();
+ 		var lang = get_browserlang();
 		if( lang_checkifexist(lang) )
 		{
 			set_flag( lang );
@@ -138,8 +188,9 @@ function initialize_lang( input_langselect )
 		else
 		{
 			set_flag( 'en' );
-		}
+		} 
 	}
+	
 }
 
 function flags_on_clicked (e)
@@ -147,6 +198,10 @@ function flags_on_clicked (e)
 	var tlang = $(e).attr('data-value');	
 	set_flag( tlang );
 	close_flags();
+	if( typeof( vocaCloseFlag ) === 'function' )
+	{
+		vocaCloseFlag(tlang);
+	}
 	setTimeout(function() { close_flags(); }, 100);
 }
 function close_flags (){
@@ -167,7 +222,6 @@ function lang_checkifexist( lang )
 	}
 	return bool
 }
-	
 +function ($) {
 'use strict';
 var Tooltip = function (element, options) {

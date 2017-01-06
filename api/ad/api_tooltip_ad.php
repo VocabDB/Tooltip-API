@@ -2,15 +2,15 @@
 //***********  Tooltip 광고 영역 ***************//
 //
 //*********************************************//
-$Url_ad = 'http://www.vocadb.co.kr/dic/tooltip_ad/images/';
+$Url_ad = 'images/';
 $tooltip_ad_voca = $Url_ad.'tooltip_ad.png';  // api/ad/images/ full name을 주어야 한다. book xml에서 에러 발생함
-$tooltip_url_voca = 'http://www.vocadb.co.kr';  //광고주 웹사이트
-$tooltip_url_hint_voca = 'vocaDB';
+$tooltip_url_voca = 'http://www.vocabdb.com/Main';  //광고주 웹사이트
+$tooltip_url_hint_voca = 'vocaDB'; 
 $ad=0;
 
 if ($ad==1) {
 		$tooltip_ad =  $Url_ad.'tooltip_ad.png';  // full name을 주어야 한다. 
-		$tooltip_url = 	'http://www.vocadb.co.kr';  //광고주 웹사이트
+		$tooltip_url = 	'http://www.vocabdb.com/Main';  //광고주 웹사이트
 		$tooltip_url_hint = 'vocaDB';
 	// for a word
 		$tooltip_ad_word =  $Url_ad.'tooltip_ad_word.png';  // full name을 주어야 한다. 

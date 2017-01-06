@@ -1,41 +1,32 @@
-// This is tooltip.js for VocaDB Tooltip
-
-$(document).ready(function(){
-	search_vocaDB( "vocaDB", 'new', true); 
-});
-var sel_txt_color = '#F5FDC8';  // background color of selected a word or text 
+// This is tooltip.js for Dictionary Clone
+var sel_txt_color = '#F5FDC8';
 function tooltip_direction() {
 		var but_dir = 0;
 		if( $('#input_direction').length )
 		{
 			but_dir = $('#input_direction').val();
 		} else if (Mobile) {
-			but_dir = 1;
+			but_dir = 1; 
 		}
 		return but_dir; 
 }
-function tooltip_tooltip_request_translation(str,slang,tlang,space_cnt,engin, audio) {
 
-// Get current url and assemble to call api folder
-var scripts = document.getElementById('voca-tooltip').src.split('/');
+function tooltip_request(str,slang,tlang,space_cnt,engin, audio) {
+/* 
+var scripts = $('script[src*="voca_tooltip.js"]')[0].src.split('/');
 var tolink = '';
-for(var i=0;i <= scripts.length-4; i++)
-{
-	tolink += scripts[i]+'/';
-}
-
-
+for(var i=0;i <= scripts.length-4; i++){tolink += scripts[i]+'/';}
+ */
 var xmlhttp;
-var apikey='clone';
-var level = getSelectedVal('input_level');  // English level
-
+var level = getSelectedVal('input_level');
 var direction = 1;
+
 	if(document.getElementById('input_direction'))
 		direction = document.getElementById('input_direction').value;
 
-	if (window.XMLHttpRequest)  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	if (window.XMLHttpRequest)  {
 		xmlhttp=new XMLHttpRequest();
-	} else  {// code for IE6, IE5
+	} else  {
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 
@@ -46,23 +37,17 @@ var direction = 1;
 			isrunning = false;
 		}
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-
-			vocaDBmean=Extract_audio_word(xmlhttp.responseText);
-			// console.log( xmlhttp.responseText );
 			
+			vocaDBmean=Extract_audio_word(xmlhttp.responseText);
 			var but_dir = tooltip_direction();
-
 			var txt_close = '<span class="close btn" onclick="remove_layer()"><i class="icon-remove"></i></span>';
-
 			var drag_div = "<div id='drag_div' onmousedown='mouseclick_mobilelayer(event)' onmouseup='voca_mobile_layer_move=false' onmouseout='voca_mobile_layer_move=false' onmousemove='dragin(event)'></div>";
-
 			if (space_cnt > 1) {
 				str = str.substr(0,70)+'...';
 				document.getElementById('vocaDB_layer').innerHTML = vocaDBmean[1]+drag_div+txt_close+"<span class='ajax_source'>"+str+"</span><br />"+vocaDBmean[2];
 			} else {
 				document.getElementById('vocaDB_layer').innerHTML = vocaDBmean[1]+drag_div+txt_close+vocaDBmean[2];
 			}
-
 			var tooltipdn_y = $('.ajax_ad').css('height').replace(/[^-\d\.]/g, '') - 35;
 			if(tooltipdn_y < 10){tooltipdn_y = 10;}
 				
@@ -71,27 +56,23 @@ var direction = 1;
 	}
 
 	if (space_cnt == 1 && slang=='en') { 
-	
-		msg = tolink+"api/api_dic_tooltip_word.php?slang="+slang+"&tlang="+tlang+"&q="+str+'&d='+direction;  
+		msg =  "api/api_dic_tooltip_word.php?slang="+slang+"&tlang="+tlang+"&q="+str+'&d='+direction;  
 	} else {
-		msg = tolink+"api/api_dic_tooltip_text.php?q="+str+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
-		
-//		msg = "api/api_dic_tooltip_text.php?q="+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
+		msg =  "api/api_dic_tooltip_text.php?q="+encodeURI(str, 'UTF-8')+'&engin='+engin+'&slang='+slang+'&tlang='+tlang+'&level='+level+'&space_cnt='+space_cnt+'&d='+direction;
 	}
-if (document.getElementById('test')) document.getElementById('test').innerHTML=msg ;	
-xmlhttp.open("post",msg,true);
-xmlhttp.send();
+	
+	xmlhttp.open("post",msg,true);
+	xmlhttp.send();
 }
 
-// Save word function from vocaDB_layer to localStorage
 function save_word(e,num)
 {
 	var word='';
 	var mean='';
 	if (num ==0 ) {
-	// word = $(e).('.ajax_word').text();
-		word = $(e).parent('.tooltip_dn').siblings('.ajax_word').text().replace(/\(.*/,'').trim();
-		mean = $(e).parent('.tooltip_dn').siblings('.ajax_means').text().trim();
+		// console.log( $(e) );
+		word = $(e).parent('.voca_save_word').siblings('.ajax_word').text().replace(/\(.*/,'').trim();
+		mean = $(e).parent('.voca_save_word').siblings('.ajax_means').text().trim();
 	} else {
 		word = $(e).closest('tr').find('.ajax_list_word').text().replace(/\(.*/,'').trim();
 		mean = $(e).closest('tr').find('.ajax_list_means').text().trim();
@@ -100,7 +81,7 @@ function save_word(e,num)
 	if(word != '' && mean != '')
 	{
 		save_localstorage(word,mean);
-		alert("Saved "+word);
+		alert( word + " saved" );
 	}
 }
 
@@ -125,7 +106,6 @@ function Extract_audio_word(msg) {
     return res; 
 }
 
-// select a target language
 function getSelectedVal(objID) {
 	var tmpObj = document.getElementById(objID);
 	if(tmpObj)
@@ -146,20 +126,7 @@ function getSelectedVal(objID) {
 	}
 }
 
-//향후 언어변경시 메세지 넣기	
-function excceed_letter(space_cnt1,maxword1,tl1,title1) {
-	var comment = ["번역과 단어,이디움 추출하기", "Go : Translate and Extract words, idioms"];
-	var imageUrl = "<img src='assets/images/logo_tooltip.png' title='"+title1+"'> "; 
-	var over_message = "";
 
-	if (tl1=='ko') over_message =comment[0]; else over_message =comment[1];
-	
-	document.getElementById('vocaDB_layer').innerHTML= imageUrl+over_message+" ("+space_cnt1+"/ Max."+maxword1+")&nbsp; ";
-}
-
-// You can do redefine a displaying layer - vocaDB_layer;
-// and choose a translator which google or Ms-bing.
-//
 function remove_layer() {
 	$("#vocaDB_layer").remove();
 	$("#vocadb_pop_up").css('display','none');
@@ -168,9 +135,8 @@ function remove_layer() {
 }
 
 function vocaDBlayer(searchword,e) {
-/******************* vocaDB setting variables ************************/	
-		var engin=1;  // 0 bing 1 google
-		var maxword = 150;  // max translation words.
+		var engin=1;
+		var maxword = 150;
 		
 		var slang  = getSelectedVal('slang'); 
 		var space_cnt=0;
@@ -178,18 +144,16 @@ function vocaDBlayer(searchword,e) {
 		var audio = false;
 		var but_dir = tooltip_direction();
 		remove_layer();
-/******************* end vocaDB setting variables ************************/
 		var search_Word = searchword;
 		if(!search_Word)
 		{
 			return false;
 		}
-		// alert(searchword);
-		// return false;
+
         search_Word = search_Word.replace(/[\.\*\?;!()\+,\[:\]<>^_`\[\]{}~\\\/\"\=]/g, " "); 
         search_Word = search_Word.replace(/\s+/g, " ");
-		search_Word = search_Word.replace(/’s/g, " ");  // remove the possessive case
-		search_Word = search_Word.replace(/'s/g, " ");   // remove the possessive case 
+		search_Word = search_Word.replace(/’s/g, " ");
+		search_Word = search_Word.replace(/'s/g, " "); 
 		search_Word = search_Word.trim();
 	
         if (search_Word != null && search_Word.replace("/\s/g", "").length > 1) {
@@ -197,7 +161,7 @@ function vocaDBlayer(searchword,e) {
 			if ($("#vocaDB_layer").length == 0) {
 				var tlang = 'en';
 				if(document.getElementById('tlang'))
-					tlang = document.getElementById('tlang').value;  //getSelectedVal('target_language'); 		
+					tlang = document.getElementById('tlang').value;		
 				var title = 'detail more';
 				
 
@@ -221,16 +185,13 @@ function vocaDBlayer(searchword,e) {
 				}
 
 				$('body').append(vocaDB_div);
-				// console.log('vocaDB_div appended');
 				var this_font = Nation_font(tlang);
 				$('#vocaDB_layer').css('font-family',this_font);
 		
 				if (space_cnt > maxword) { 
-					excceed_letter(space_cnt,maxword,tlang,title); 
-					return ;
+					search_Word =  search_Word.substr(0,maxword-1);
 				} else {
-
-					tooltip_tooltip_request_translation(search_Word,slang,tlang,space_cnt,engin,audio);
+					tooltip_request(search_Word,slang,tlang,space_cnt,engin,audio);
 				}
 			}
 		
@@ -241,13 +202,12 @@ function vocaDBlayer(searchword,e) {
 				{
 					var y = window.pageYOffset + 72
 					if(screen.width < 400 ) 
-						$(this).css({'left' : 0, 'top' : y });	//move the layer at the cursor position
+						$(this).css({'left' : 0, 'top' : y });
 					else 
 					{
-						var myleft = (screen.width - 400) / 2; //screen.width/2 - 400;
+						var myleft = (screen.width - 400) / 2;
 						$(this).css({'left' : myleft+'px', 'top' : y });
 					}
-					// alert(screen.width+' / '+myleft);
 				}
 				else 
 				{
@@ -270,10 +230,10 @@ function vocaDBlayer(searchword,e) {
 
 		
         } 
-	}; //END vocaDBlayer
+	};
  
 function search_vocaDB( areaClass,  target, audio) {
-
+	document.body.setAttribute('spellcheck', false); 
 	var openPopup_Ad = function() {
 			window.open("");
     };
@@ -281,8 +241,8 @@ function search_vocaDB( areaClass,  target, audio) {
 	var openPopup = function(search_Word) {
 		
         var searchUrl;
-		var tlang  = document.getElementById('tlang').value; //getSelectedVal('target_language');  // book of language
-		var level = getSelectedVal('input_level');  // English level
+		var tlang  = document.getElementById('tlang').value;
+		var level = getSelectedVal('input_level');
 		var slang  = getSelectedVal('source_lang'); 
         searchUrl = "../search.php?level="+level+"&seldic=0&slang="+slang+"&&tlang="+tlang+"&q=" + search_Word;  
 
@@ -295,12 +255,9 @@ function search_vocaDB( areaClass,  target, audio) {
 				window.open(searchUrl, target, "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=no,width=915,height=760,top=300,left=300");
 			}
         } 
-
     };
-	
 	var image_loc = 'http://vocabdb.com/images/';
 	
-	/* edit Menu*/
 	var popup_vocadb = '<div id="vocadb_pop_up" unselectable="on"><ul><li class="logo_img"><span><img src="'+image_loc+'logo_icon_white.png"/></span></li><li id="special_border_vocadb"> &nbsp; </li><li><span class="context_change" data-color="FFC7D3" style="background-color:#FFC7D3;"></span></li><li><span class="context_change" data-color="E6FFC7" style="background-color:#E6FFC7"></span></li><li><span class="context_change" data-color="C7ECFF" style="background-color:#C7ECFF"></span></li><li><span class="context_change" data-color="FFECB8" style="background-color:#FFECB8"></span></li></ul></div>';
 	$('body').append(popup_vocadb);
 	var voca_tooltip_donotclose = false;
@@ -322,12 +279,11 @@ function search_vocaDB( areaClass,  target, audio) {
 	var gettext = '';
 	if(Mobile)
 	{
-		// $('body').append(mobile_modal);
 		var selectionEndTimeout = '',clicked = false;
 		
 		
 		$(area).on('click',function(e){
-			if( isrunning ){return false; }
+			if( isrunning ){isrunning = false;return false; }
 			isrunning = true;
 			
 			if( check_unvoca() ){return false;}
@@ -338,11 +294,9 @@ function search_vocaDB( areaClass,  target, audio) {
 			}
 			
 			var selected_text = detectSelectedText(e);
-			// console.log(typeof(selected_text));
 			if(typeof(selected_text) == 'object')
 			{
 				var clicked_gettext = selected_text['text'];
-				// console.log(clicked_gettext);
 				var range = selected_text['range'];
 				if(clicked_gettext != '')
 				{
@@ -381,13 +335,11 @@ function search_vocaDB( areaClass,  target, audio) {
 				clicked = false;
 			}, 500);
 		}, true);
-
 	}
 	else
 	{
-		// $('body').append(drag_layer);
 		$(area).dblclick(function(e){
-			if( isrunning ){ return false; }
+			if( isrunning ){ isrunning = false;return false; }
 			isrunning = true;
 			
 			if( check_unvoca() ){return false;}
@@ -397,13 +349,12 @@ function search_vocaDB( areaClass,  target, audio) {
 			}
 			hidemenu_();
 			gettext = getSelectedText();
-			change_color(sel_txt_color);
+			//change_color(sel_txt_color);  // Never use it. occured a bug on input or textbox.			
 			vocaDBlayer(gettext,e);
 		});
 		$(area).mouseup(function(e){	
 			if( check_unvoca() ){return false;}
 			gettext = getSelectedText();
-			// console.log(gettext);
 			if(gettext != '')
 			{
 				showmenu_(e);
@@ -439,7 +390,6 @@ function search_vocaDB( areaClass,  target, audio) {
 		
 		var scrollY = (window.scrollY) ? window.scrollY : document.documentElement.scrollTop;
 		var posY = oRange.bottom + 30 + scrollY;
-		// console.log( posY + ' ' + posX );
 		if(posX < 0)
 		{
 			posX = 10;
@@ -470,44 +420,27 @@ function search_vocaDB( areaClass,  target, audio) {
 		vocaDBlayer(gettext,e);
 		hidemenu_();
 	});
-	// function popup_logoimg(){
-		// vocaDBlayer(gettext,e);
-		// hidemenu_();
-	// }
 	$('#vocadb_pop_up .context_change').on('click',function(e){
 		gettext = getSelectedText();
-		// var page_num = get_pagenum();
 
 		var color = '#' + $(this).attr('data-color');
 		change_color(color);
 		window.getSelection().removeAllRanges();
-		// var bookname = get_bookname();
-		// save_localstorage_color(bookname,gettext,color,page_num);
 	});
 	
 	function change_color(color)
 	{
-		// if (window.getSelection && document.createRange) {
-			// var range = document.createRange();
-			// range.setStart(selected_node, selected_start);
-			// range.setEnd(selected_node, selected_finsh);
-			// var sel = window.getSelection();
-			// sel.removeAllRanges();
-			// sel.addRange(range);
-		// }
 		highlight(color);
 	}
 	function check_unvoca()
 	{
 		if( $(getORange().anchorNode ).parents().hasClass('un-voca') )
 		{
-			// remove_layer();
-			// hidemenu_();
 			window.getSelection().removeAllRanges();
 			return true;
 		}
 	}
-}//end search_vocaDB
+}
 
 function save_localstorage(txt,mean)
 {
@@ -517,7 +450,6 @@ function save_localstorage(txt,mean)
 	}
 }
 
-//bookname,text,color,page_num
 function save_localstorage_color( bookname,txt,color,page_num ) {
 	var stored_words = get_localstorage_tooltip(bookname);
 	var means = '';
@@ -532,7 +464,7 @@ function save_localstorage_color( bookname,txt,color,page_num ) {
 	{
 		if( txt == key )
 		{
-			not_same_word = false; //they are same word
+			not_same_word = false;
 			stored_words[key].color = new_word.color;
 		}
 	}
@@ -547,12 +479,10 @@ function save_localstorage_color( bookname,txt,color,page_num ) {
 	}
 }
 
-//returns array
 function get_localstorage_tooltip(bookname) {
 	var stored_words = [];
 	if(localStorage != null)
 	{
-	// console.log(localStorage);
 		if(localStorage[bookname]){
 			stored_words = JSON.parse(localStorage[bookname]);
 		}
@@ -565,9 +495,15 @@ function tooltip_trans_site(engin,slang,tlang,Trans) {
 	var vUrl = '';
  
 	if (engin == 0) {
-		vUrl = 'http://www.bing.com/translator/default.aspx?text='+Trans;
+		if (tlang == 'zh-CN') {
+			tlang = 'zh-CHS';
+		} else if(tlang == 'zh-TW' ) {
+			tlang = 'zh-CHT';
+		} 
+		vUrl = 'http://www.bing.com/translator/default.aspx?'+'from='+slang+'&to='+tlang+'&text='+encodeURI(Trans);
+//alert(vUrl);		
 	} else {
-		vUrl = 'http://translate.google.co.kr/#auto/'+tlang+'/'+Trans;
+		vUrl = 'http://translate.google.com/#'+slang+'/'+tlang+'/'+encodeURI(Trans);
 	}
 	if (/mobile/i.test(navigator.userAgent)) {  window.location.assign(vUrl); } 
 	else  { window.open(vUrl); }
@@ -583,7 +519,6 @@ function makeEditableAndHighlight(colour) {
         sel.removeAllRanges();
         sel.addRange(range);
     }
-    // Use HiliteColor since some browsers apply BackColor to the whole block
     if (!document.execCommand("HiliteColor", false, colour)) {
         document.execCommand("BackColor", false, colour);
     }
@@ -593,7 +528,6 @@ function makeEditableAndHighlight(colour) {
 function highlight(colour) {
     var range, sel;
     if (window.getSelection) {
-        // IE9 and non-IE
         try {
             if (!document.execCommand("BackColor", false, colour)) {
                 makeEditableAndHighlight(colour);
@@ -602,7 +536,6 @@ function highlight(colour) {
             makeEditableAndHighlight(colour)
         }
     } else if (document.selection && document.selection.createRange) {
-        // IE <= 8 case
         range = document.selection.createRange();
         range.execCommand("BackColor", false, colour);
     }
@@ -619,7 +552,6 @@ function getORange()
     return "";
 }	
 
-//Cross-browser function to get selected text
 function getSelectedText(){
     if(window.getSelection())
         return window.getSelection().toString();
@@ -630,11 +562,9 @@ function getSelectedText(){
     return "";
 }
 
-//for Mobile, detect text on 1 click
 function detectSelectedText(e){
 	var t = '';
 	s = window.getSelection();
-	// console.log( s.rangeCount );
 	if ( s.rangeCount > 0 ) {
 		var range = s.getRangeAt(0);
 		var node = s.anchorNode;
@@ -678,24 +608,16 @@ function detectSelectedText(e){
 	return 'nope';
 }
 
-
-// ### mobile layer ###
-//onmousedown="mouseclick_mobilelayer(event)" onmouseup="voca_mobile_layer_move=false" onmouseout="voca_mobile_layer_move=false" ontouchmove="dragin(event)" onmousemove="dragin(event)"
-//mousemove
-
-
 var voca_mobile_layer_move = false,voca_layer_transcheck = false;
 var voca_mobile_layer_left = 0,voca_mobile_layer_top = 0;
 function dragin(e)
 {	
 	var w = e.target.clientWidth;
-	
 	var x = 4 + (window.innerWidth/100 * 1.7);
-	// console.log(x);
 	if(voca_layer_transcheck) {x=1;}
 	
  	if(voca_mobile_layer_move)
-	{ //$('#drag_div').css('top').replace(/[^-\d\.]/g, '')
+	{
 		$('#vocaDB_layer').css({
 			'position': 'absolute',
 			'top': (e.pageY - 0 ) - (e.target.clientHeight -(e.target.clientHeight - voca_mobile_layer_top)) +'px',
@@ -704,7 +626,7 @@ function dragin(e)
 		voca_tooltip_donotclose = true;
 	}
 }
-//mouseclick
+
 function mouseclick_mobilelayer(e)
 {
 	voca_tooltip_donotclose = true;
@@ -712,8 +634,7 @@ function mouseclick_mobilelayer(e)
 	
 	voca_mobile_layer_left = e.offsetX;
 	voca_mobile_layer_top = e.offsetY;
-	
-	// console.log(e.target.offsetParent.className);
+
 	if( e.target.offsetParent.className == 'voca_trans' ){voca_layer_transcheck = true;}else{voca_layer_transcheck = false;}
 }
 
@@ -725,8 +646,7 @@ function checkMobile() {
 }
 function Nation_font(tlang)
 {
-	var font_array =  {"ar":"Arabic","hy":"Armenian","bn":"Bengali","bg":"Bulgarian","zh-CN":"'Microsoft Yahei'","zh-TW":"'Microsoft Yahei'","hr":"Croatian","cs":"Czech","da":"Danish","nl":"Dutch","en":"sans-serif","tl":"Filipino","fi":"Finnish","fr":"French","ka":"Georgian","de":"German","el":"Greek","hi":"Hindi","hu":"Hungarian","id":"Indonesian","it":"Italian","ja":"游ゴシック, 'Yu Gothic', YuGothic, 'Lucida Grande', 'ヒラギノ角ゴ ProN W3', HiraKakuProN-W3, 'ヒラギノ角ゴ Pro W3', HiraKakuPro-W3, メイリオ, Meiryo,  'ＭＳ Ｐゴシック', 'MS PGothic'","ko":"'나눔 고딕','Nanum Gothic',Malgun Gothic,'맑은 고딕'","ms":"Malay","no":"Norwegian","fa":"Persian","pl":"Polish","pt":"Portuguese","ro":"Romanian","ru":"Russian","sl":"Slovenian","es":"Spanish","sv":"Swedish","ta":"Tamil","th":"Thai","tr":"Turkish","uk":"Ukrainian","vi":"Vietnamese"};
- 
+	var font_array = {"ar":"Tahoma", "hy":"Arial,Tahoma,Verdana,sans-serif", "bn":"TonnyBanglaMJ, SolaimanLipi, Times, serif", "bg":"Times New Roman", "zh-CN":'"microsoft yahei", simhei, arial, sans-serif', "zh-TW":'"PT Mono",Courier,"微軟正黑體","Microsoft JhengHei"', "hr":"Arial,Tahoma,Verdana,sans-serif", "cs":'"Arial CE",Arial,"Helvetica CE",Helvetica,helvetica,sans-serif', "da":"Arial,Tahoma,Verdana,sans-serif", "nl":"Arial,Tahoma,Verdana,sans-serif", "en":"sans-serif", "tl":"Arial,Verdana,Tahoma", "fi":"Arial,Tahoma,Verdana,sans-serif", "fr":'Arial,"Trebuchet MS",Helvetica,sans-serif', "ka":"Arial,Tahoma,Verdana,sans-serif", "de":"arial,helvetica,sans-serif", "el":'arial, helvetica, lucida sans, "arial unicode ms", "code2000", verdana, sans-serif', "hi":"Verdana,Arial,Helvetica", "hu":"Verdana, Arial, Helvetica, sans-serif", "id":"Verdana, Georgia, Arial, sans-serif", "it":"Arial", "ja":"游ゴシック, 'Yu Gothic', YuGothic, 'Lucida Grande', 'ヒラギノ角ゴ ProN W3', HiraKakuProN-W3, 'ヒラギノ角ゴ Pro W3', HiraKakuPro-W3, メイリオ, Meiryo,  'ＭＳ Ｐゴシック', 'MS PGothic'", "ko":"'Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',AppleGothic,Dotum,'돋움',Arial,sans-serif", "ms":"verdana, arial, helvetica, sans-serif", "no":"rial,Tahoma,Verdana,sans-serif", "fa":"Helvetica,Tahoma,Sans-Serif,'Segoe UI'", "pl":'"Helvetica Neue", Helvetica, Arial, sans-serif', "pt":"Verdana, arial, Helvetica, sans-serif", "ro":"'Roboto', sans-serif", "ru":"Helvetica, Arial, Tahoma, sans-serif", "sl":"Arial,Tahoma,Verdana,sans-serif", "es":"Helvetica Neue,Helvetica,Arial,sans-serif", "sv":"verdana, arial", "ta":"Arial,Tahoma,Verdana", "th":"Arial,Helvetica,sans-serif", "tr":'Segoe UI,Lucida Grande,DejaVu Sans,"Helvetica Neue",Helvetica,Arial,sans-serif', "uk":"arial, helvetica, sans-serif", "vi":"Arial,Helvetica,sans-serif"};
 	var result = "Arial";
 	if(tlang in font_array)
 	{
@@ -734,6 +654,5 @@ function Nation_font(tlang)
 	}
 	return result;
 }
-
 var Mobile = checkMobile();
 var isrunning = false;

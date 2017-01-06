@@ -1,11 +1,9 @@
 <?php
-ini_set('display_errors',0); 
+ini_set('display_errors',1); 
 error_reporting(E_ALL); 
 header('Content-Type: application/json; charset=UTF-8'); 
- 
 
-
-//  http://appsmithing.com/dic/api/api_dic_tooltip_word.php?slang=en&tlang=ko&q=recession&d=0
+// http://appsmithing.com/dic/api/api_dic_tooltip_word.php?q=Manager&slang=en&tlang=ko&d=0
 
 function disp_means($means) {
       $ss = $means;
@@ -68,8 +66,20 @@ function Show_website_word($word,$tlang)
 				case 'fi' : $url = "http://www.suomienglantisanakirja.fi/english.php#/".$word; break;	
 				case 'da' : $url = "https://en-da.dict.cc/?s=".$word; break;
 //*****************************************************************************					
-				default : $url = $this->Dict_Url_word_us($word); break; //en 포함
+				default : $url = Dict_Url_word_us($word); break; //en 포함
 			}
+	return $url;
+}
+
+function Dict_Url_word_us($word)
+{
+	global $Nation;
+	$cnt = substr_count($word," ");
+				if ($cnt == 0) {
+					$url = "http://wordnetweb.princeton.edu/perl/webwn?s=".$word;
+				} else {
+					$url= "http://www.wordreference.com/en".$Nation."/".$word;
+				}
 	return $url;
 }
 
@@ -102,24 +112,31 @@ function Request_meaing_word($url,$word,$slang,$tlang)
 
 function Print_No_result($word,$slang,$tlang)
 {
+
 		$url = Show_website_word($word,$tlang);
-		$str = Request_meaing_word($url,$word,$slang,$tlang);
+		$str = "<span class='ajax_word'>".$word."</span><br>";
+		$str .= Request_meaing_word($url,$word,$slang,$tlang);
 		return $str;
-		
 }
 
-function print_result_word_ajax($api_array,$word_source,$slang,$tlang) {
-
-			$search_result = "<span class='ajax_word'>".$api_array['word']['voca']." <small>(";
+function print_result_word_ajax($api_array,$word_source,$slang,$tlang) 
+{
+	global $G_path_tooltip, $G_path_audio,$G_path_small_image;
+	require_once '../commonUtils/setting_vocadb.php';
+	
+			$search_result = "<span class='ajax_word'>".$api_array['word']['voca']."</span><span class='ajax_pos'>(";
 
 			if ($tlang=='ar' or $tlang=='fa') {
 				$meaning = disp_means_arabic($api_array['word']['means']);
 			} else {
 				$meaning = disp_means($api_array['word']['means']);
 			}
-			if ($api_array['word']['voca'] <> $word_source) {
-				$search_result .= $word_source.', ';   // 원본 출력
-			} 
+			if ($word_source <> '' and $api_array['word']['voca'] <> $word_source) {
+				if (ucfirst($api_array['word']['voca']) <> $word_source) {  // lcfirst() can be over 5.4 version of PHP
+					$search_result .= $word_source.', ';   // 원본 출력
+				} 
+			}
+
 			// 임시로 레벨 space제거, 아랍권 언어 때문. DB level 변경하면 제거함. (json_db)
 			$search_result .= $api_array['word']['part'];
 			
@@ -127,24 +144,24 @@ function print_result_word_ajax($api_array,$word_source,$slang,$tlang) {
 				$s=str_replace(" ","",$api_array['word']['level']); 
 				$search_result .= " - ".$s.")";
 			} else { $search_result .=')'; }  //en-en 인경우 레벨 제거
-			$search_result .= '</small>';
-			
-			$base_url='http://www.vocadb.co.kr/dic/images/';
-			$save_word = true;  // 검색한 단어를 저장하기 위함.	
-			$url_sound_image = $base_url.'sound_white.png';  //http://www.vocadb.co.kr/dic/
+			$search_result .= '</span>';
 
-			$audio_word = "http://www.vocadb.co.kr/dic_media/audio/usw/".$api_array['word']['voca'];			
-			$search_result .= "</span><span class='tooltip_dn'><a href='javascript:audio_play_tooltip(\"".$audio_word."\",0)'><img src='".$url_sound_image."' border='0' /></a></span><br />";
-			
-			$search_result .= "<span class='ajax_means'>".$meaning."</span>";
-/* 		Save a word.
-	
+			$audio_word = $G_path_audio.$api_array['word']['voca'];			
+			$search_result .= "<span class='voca_sound_word' ><a href='javascript:audio_play_tooltip(\"".$audio_word."\",0)'><img src='".$G_path_audio_image."' border='0' /></a></span>";
+// 		Save a word.
+			$save_word = true;  // 검색한 단어를 저장하기 위함.	
 			if ($meaning <> '' and $save_word) {
-				$download_image = $base_url.'dn_won.png';		
-				$search_result .= "<span class='tooltip_dn'><img onclick='save_word(this,0)' src='".$download_image."' border='0' /></span>";	
-			} 
-*/
 			
+				$search_result .= "<span class='voca_save_word' ><img onclick='save_word(this,0)' src='".$G_path_dn_image."' border='0' /></span>";	//
+			}
+			
+			if ($api_array['word']['image'] <> '') { 
+				$search_result .='<div class="voca_word_img"><img src="'.$G_path_small_image.$api_array['word']['image'].'.jpg'.'"></div>';
+			} 
+
+
+			
+			$search_result .= "<br /><div class='ajax_means'>".$meaning."</div>";
 
 		return $search_result;
 
@@ -177,7 +194,7 @@ function print_AD($word, $means) {
 }
 
 function add_text_ad($result_msg) 
-{	
+{
 
 //***********  Tooltip 광고 영역 ***************//
 		require_once 'ad/api_tooltip_ad.php';
@@ -190,13 +207,11 @@ function add_text_ad($result_msg)
 		}
 		$ad_div_front = "|".$ad_div_front; 	
 
-		
 	 // end part of AD
 		if ($ad == 1) {
 			$ad_div_bottom = "<div style='width:100%; margin-top:12px; float:left;'>";
 			if ($tooltip_ad_trans_image=='n') {
 				$ad_div_bottom .= "<a href='".$tooltip_url_word."' target='_blank'>".'<img src="'.$tooltip_ad_word.'" border="0" title="'.$tooltip_url_hint_word.'" /></a>';
-
 			} else {
 				$ad_div_bottom .=$tooltip_ad_trans;  // iframe 등
 			}
@@ -211,19 +226,29 @@ function add_text_ad($result_msg)
 		exit; 
 	}
 	if (!isset($_REQUEST['q']) && empty($_REQUEST['q'])) { 
-			echo '||<span class="ajax_means">Access is forbidden. 4010 - Nothing text.</span>'; 
+			echo '||<div class="ajax_means">Access is forbidden. 4010 - Nothing text.</div>'; 
 			exit ; 
 	} 
   	
-	$tlang = $_REQUEST['tlang'];  //target language
-	$slang = $_REQUEST['slang'];  //$slang = 'en';  //source language	
+
 	
-	$word =  stripslashes(trim(strip_tags($_REQUEST['q'])));	
-//$word = preg_replace("/[#\&\+\%@=\/\\\:;,\.\^\"\`\~\_|\!\?\*$#<>()\[\]\{\}0-9]/i", "", $word);
- 	$direction =  ( isset($_REQUEST['d']) ? $_REQUEST['d'] : '1' );
-	
+ 	$word  = ( isset($_REQUEST['q']) ? trim(stripslashes(strip_tags($_REQUEST['q']))) : '' );
+	$tlang = ( isset($_REQUEST['tlang']) ? $_REQUEST['tlang'] : 'en' );  //target language
+	$slang = ( isset($_REQUEST['slang']) ? $_REQUEST['slang'] : 'en' ); //source language
+//	$level = ( isset($_REQUEST['level']) ? $_REQUEST['level'] : 21 );	// none user in tooltip_word
+	$direction =  ( isset($_REQUEST['d']) ? $_REQUEST['d'] : 0 ); 
+
+/*  		$result_api = '<div class="ajax_means">'.$word.' <br>Language Problem : Slang='.$slang.' / '.'Tlang= '.$tlang.'</div>';
+		echo add_text_ad($result_api);
+		exit; */
+		
+	if ($tlang =="" or $slang=="") {
+		$result_api = '<div class="ajax_means">Language Problem : Slang='.$slang.' / '.'Tlang= '.$tlang.'</div>';
+		echo add_text_ad($result_api);
+		exit;
+	}
 	if (strlen(trim($word)) < 3) {
-		$result_api = '<span class="ajax_means">Shorted text : '.$word.'</span>';
+		$result_api = '<div class="ajax_means">Shorted text : '.$word.'</div>';
 	} else {
 		
 			require_once '../commonUtils/setting_config.php';
@@ -234,6 +259,7 @@ function add_text_ad($result_msg)
 				"q"=>$word,
 				"d"=>$direction
 			); 
+
 
 			$data_string = '';
 			foreach($ACCESS_TOKEN_PARAMETERS as $key=>$value) { $data_string .= $key.'='.$value.'&'; }
@@ -253,16 +279,21 @@ function add_text_ad($result_msg)
 			); 
 
 			$result_api = curl_exec($ch);
-			curl_close($ch); 
-
+			curl_close($ch);
+//print_r($result_api);
 			if (!$result_api) {
-				$result_api = '<span class="ajax_means">Access fail </span>';
+				$result_api = '<div class="ajax_means">Access fail </div>';
 			} else {
+				
 				$api = json_decode($result_api,true);
-
- 				if (isset($api['word']['voca']) and  $api['word'] <> "" ) {
-					$result_api = print_result_word_ajax($api,$word,$slang,$tlang);
+					
+				if ($api['type'] > 0 and $api['contents'] > 0) {
+					$api_array = $api['contents'];
+			
+					$result_api = print_result_word_ajax($api_array,$word,$slang,$tlang);
 				} else {
+					echo $word.$slang.$tlang;
+print_r($result_api);						
 					$result_api =Print_No_result($word,$slang,$tlang);
 				} 
 			}

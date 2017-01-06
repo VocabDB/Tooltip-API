@@ -1,20 +1,20 @@
 <?php
 ini_set('display_errors',1); 
 error_reporting(E_ALL);
-header('Content-Type: application/json; charset=UTF-8');
+header('Content-Type: application/plain; charset=UTF-8');
 
-// http://appsmithing.com/dic/api/api_dic_trans.php?q=Forbidden this access&tlang=ko&slang=en&engin=0
+// http://appsmithing.com/dic/api/api_dic_tooltip_pay_trans.php?q=Forbidden this access&tlang=ko&slang=en&engin=0
 	
 // call from api_dic_tooltip_text.php
 //function translation_word($apikey,$search,$engin,$slang,$tlang,$level,$translation_url,$d) {
-	if ($_SERVER['HTTP_USER_AGENT']) {   // access from web browser not server.
-		exit ("<h2>403 Forbidden this access </h2>"); 
+/* 	if (!$_SERVER['HTTP_USER_AGENT']) {   // access from web browser not server.
+		exit ("<h2>403 Forbidden this access HTTP</h2>"); 
 	}
 	
 	if (!isset($_REQUEST['q']) && empty($_REQUEST['q'])) { 
 			exit ('Access is forbidden. 4010 - Nothing text.'); 
 	}
-	
+ */	
 		$ACCESS_TOKEN_PARAMETERS = array(
 			"q"=>$word,
 			"engin"=>$engin,
